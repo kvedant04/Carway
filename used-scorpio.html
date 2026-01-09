@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Used Mahindra Scorpio N | CarWay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #ffa500;
+            --primary-dark: #ff8c00;
+            --secondary: #6a5af9;
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-light: #ffffff;
+            --text-muted: #aaaaaa;
+            --used-tag: #ff0000;
+        }
+       
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+       
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        .logo {
+            font-family: Arial, sans-serif;
+            font-size: 2.1rem;
+            font-weight: bold;
+            text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+        
+        .highlight {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: #1e1e1e;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        .highlight:hover{
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: var(--card-bg);
+            align-items: center;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0px;
+            z-index: 100;
+            animation: fadeInDown 0.8s ease;
+        }
+       
+        header nav {
+            display: flex;
+            align-items: center;
+        }
+       
+        header nav ul {
+            list-style: none;
+            display: flex;
+        }
+       
+        header nav ul li {
+            margin-left: 20px;
+            position: relative;
+        }
+       
+        header nav ul li a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+       
+        header nav ul li a:hover {
+            background-color: rgba(255,107,53,0.2);
+            transform: translateY(-2px);
+        }
+       
+        .book-now-nav {
+            padding: 10px 20px;
+            background: linear-gradient(to right, #ffa500, #ff8c00);
+            color: white;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(255,165,0,0.3);
+        }
+       
+        .book-now-nav:hover {
+            background: linear-gradient(to right, #ff8c00, #ffa500);
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 12px rgba(255,140,0,0.4);
+        }
+       
+        #car-details {
+            display: flex;
+            padding: 30px;
+            background-color: var(--card-bg);
+            margin: 30px auto;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease;
+            position: relative;
+        }
+        
+        .used-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--used-tag);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            z-index: 2;
+            animation: fadeIn 3s ease;
+            animation: pulse 2s infinite;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+        }
+       
+        #car-details:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+        }
+       
+        #car-details .car-images {
+            flex: 1;
+            padding-top: 25px;
+            padding-right: 30px;
+            margin-top: 8px;
+            position: relative;
+        }
+        
+        #car-details .car-images img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: all 0.5s ease;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+        }
+       
+        #car-details .car-images img:hover {
+            transform: scale(1.02);
+        }
+       
+        #car-details .car-info {
+            flex: 1.5;
+            padding-left: 30px;
+        }
+       
+        #car-details .car-info h1 {
+            margin-bottom: 15px;
+            font-size: 40px;
+            color: var(--primary);
+            animation: fadeInRight 1s ease;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .car-year {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-left: 10px;
+            font-weight: normal;
+        }
+       
+        #car-details .car-info .reviews-rate {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+       
+        #car-details .car-info .description {
+            margin-bottom: 20px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        .used-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .used-highlight {
+            background-color: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .used-highlight i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+       
+        #car-details .car-info .price {
+            font-size: 29px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-size: 18px;
+            margin-left: 10px;
+        }
+        
+        .price-drop {
+            color: var(--used-tag);
+            font-size: 14px;
+            margin-left: 10px;
+        }
+       
+        #car-details .car-info .price small {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        .offer-banner {
+            background-color: rgba(255,107,53,0.2);
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            border-radius: 0px 8px 8px 0px;
+            margin-bottom: 20px;
+        }
+        
+        .offer-banner p {
+            color: var(--primary);
+            font-weight: bold;
+        }
+       
+        #car-details .car-info .reviews {
+            margin-top: 25px;
+        }
+       
+        .offer-button {
+            padding: 12px 25px;
+            background: linear-gradient(to right, #6a5af9, #5948c7);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(106,90,249,0.3);
+            display: inline-block;
+            margin-right: 15px;
+            margin-bottom: 20px;
+            text-decoration: none;
+        }
+       
+        .offer-button:hover {
+            background: linear-gradient(to right, #5948c7, #6a5af9);
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 12px rgba(106,90,249,0.4);
+        }
+       
+        .star {
+            font-size: 24px;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+       
+        .star:hover,
+        .star.hovered,
+        .star.selected {
+            color: var(--primary);
+            transform: scale(1.2);
+        }
+   
+        .reviews {
+            font-family: Arial, sans-serif;
+            margin: 10px 0;
+        }
+   
+        .reviews p {
+            margin-bottom: 10px;
+        }
+   
+        .stars {
+            display: flex;
+            gap: 5px;
+        }
+       
+        .main-content {
+            display: flex;
+            max-width: 1200px;
+            margin: 30px auto;
+            gap: 30px;
+        }
+       
+        .specs-container {
+            flex: 2;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease;
+        }
+       
+        .specs-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+        }
+       
+        .reviews-container {
+            flex: 1;
+            width: 50%;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease;
+        }
+       
+        .reviews-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+        }
+       
+        h1, h2, h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+       
+        h1::after, h2::after, h3::after {
+            content: '';
+            position: absolute;
+            left: 0px;
+            bottom: -10px;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+       
+        .features-box {
+            display: flex;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+       
+        .feature-tab {
+            flex: 1;
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            color: var(--text-light);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+        }
+       
+        .feature-tab:hover {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0px 6px 12px rgba(255,107,53,0.3);
+        }
+       
+        .feature-tab.active {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+        }
+       
+        .feature-content {
+            display: none;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+            margin-top: 15px;
+            animation: fadeIn 0.5s ease;
+        }
+       
+        .feature-content.active {
+            display: block;
+        }
+       
+        .feature-content ul {
+            list-style-type: none;
+        }
+       
+        .feature-content ul li {
+            background: #444;
+            margin: 10px 0px;
+            padding: 15px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+       
+        .feature-content ul li:hover {
+            transform: translateX(5px);
+            background: #555;
+        }
+        
+        /* Used Car Specific Specs */
+        .used-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .used-spec-item {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .used-spec-label {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .used-spec-value {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .owner-details {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .owner-details h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .owner-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .owner-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .owner-name {
+            font-weight: bold;
+        }
+        
+        .owner-rating {
+            color: var(--primary);
+            font-size: 14px;
+            margin-top: 3px;
+        }
+        
+        .owner-description {
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+       
+        .updates ul {
+            list-style-type: none;
+        }
+       
+        .updates ul li {
+            background: #333;
+            margin: 15px 0px;
+            padding: 20px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+       
+        .updates ul li:hover {
+            transform: translateX(5px);
+            background: #444;
+        }
+       
+        .update-date {
+            color: var(--primary);
+            font-weight: bold;
+        }
+       
+        /* Review Section Styles */
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+       
+        .rating-badge {
+            font-size: 40px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-right: 20px;
+        }
+       
+        .review-count {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+       
+        .review-categories {
+            display: flex;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+       
+        .review-category {
+            padding: 8px 15px;
+            background-color: #333;
+            border-radius: 20px;
+            font-size: 14px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+       
+        .review-category:hover, .review-category.active {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+        }
+       
+        .review-category.active {
+            font-weight: bold;
+        }
+       
+        .review-sort {
+            display: flex;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+       
+        .sort-option {
+            color: var(--text-muted);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+       
+        .sort-option:hover, .sort-option.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+       
+        .review-divider {
+            height: 1px;
+            background-color: #333;
+            margin: 20px 0px;
+        }
+       
+        .user-review {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+       
+        .user-review:last-child {
+            border-bottom: none;
+        }
+       
+        .review-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+       
+        .review-user {
+            font-weight: bold;
+            color: var(--primary);
+        }
+       
+        .review-date {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+       
+        .review-rating {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+       
+        .review-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+       
+        .review-text {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+       
+        .read-more {
+            color: var(--primary);
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+       
+        .read-more:hover {
+            text-decoration: underline;
+        }
+       
+        section {
+            padding: 30px;
+            background-color: var(--card-bg);
+            margin: 30px auto;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease;
+        }
+       
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+        }
+       
+        #book-now-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto;
+            padding: 15px;
+            font-size: 19px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(255,107,53,0.3);
+            animation: pulse 2s infinite;
+        }
+       
+        #book-now-btn:hover {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0px 10px 20px rgba(242,92,51,0.4);
+            animation: none;
+        }
+       
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--card-bg);
+            color: var(--text-light);
+            margin-top: 50px;
+            animation: fadeInUp 1s ease;
+        }
+       
+        footer p {
+            color: var(--text-muted);
+        }
+       
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+       
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            #car-details {
+                flex-direction: column;
+            }
+           
+            #car-details .car-images {
+                padding-right: 0px;
+                margin-bottom: 30px;
+            }
+           
+            #car-details .car-info {
+                padding-left: 0px;
+            }
+           
+            .features-box {
+                flex-direction: column;
+            }
+           
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .used-specs {
+                grid-template-columns: 1fr;
+            }
+        }
+       
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+           
+            header nav {
+                margin-top: 15px;
+                width: 100%;
+                justify-content: center;
+            }
+           
+            header nav ul li {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+           
+            .book-now-nav {
+                margin-left: 10px;
+            }
+           
+            #car-details .car-info h1 {
+                font-size: 32px;
+            }
+           
+            .specs-container, .reviews-container {
+                padding: 20px;
+            }
+        }
+       
+        @media (max-width: 576px) {
+            header nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+           
+            header nav ul li {
+                margin: 5px;
+            }
+           
+            .container, #car-details, section {
+                padding: 20px;
+            }
+           
+            .review-categories {
+                gap: 5px;
+            }
+           
+            .review-category {
+                padding: 5px 10px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" style="text-decoration: none"><div class="logo">Car<span class="highlight">Way</span></div></a>
+    <nav>
+        <ul>
+            <li><a href="#specs">Features</a></li>
+            <li><a href="#history">History</a></li>
+            <li><a href="#price">Price</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+        </ul>
+        <a href="#booking" class="book-now-nav">Buy Now</a>
+    </nav>
+</header>
+
+<section id="car-details">
+    <div class="used-badge">USED</div>
+    <div class="car-images">
+        <img src="https://stimg.cardekho.com/images/carexteriorimages/630x420/Mahindra/Scorpio-N/10817/1690351800434/front-left-side-47.jpg" alt="Used Mahindra Scorpio N - A robust SUV with modern features" class="animate__animated animate__fadeInLeft">
+    </div>
+    <div class="car-info">
+        <h1 class="animate__animated animate__fadeInRight">Mahindra Scorpio N <span class="car-year">(2022)</span></h1>
+
+        <p class="reviews-rate animate__animated animate__fadeIn animate__delay-1s">42,387 km | First Owner | Manual Transmission</p>
+        <p class="description animate__animated animate__fadeIn animate__delay-1s">This well-maintained 2022 Mahindra Scorpio N is a rugged SUV known for its powerful performance and modern features. The diesel engine delivers excellent mileage and the car comes with all service records.</p>
+        
+        <div class="used-highlights animate__animated animate__fadeIn animate__delay-1s">
+            <div class="used-highlight"><i>✓</i> No Accidents</div>
+            <div class="used-highlight"><i>✓</i> Full Service History</div>
+            <div class="used-highlight"><i>✓</i> 2 Keys Available</div>
+            <div class="used-highlight"><i>✓</i> Warranty Until 2025</div>
+        </div>
+        
+        <div class="price animate__animated animate__fadeIn animate__delay-1s">
+            <span>₹8.85 - 12.54 Lakh</span>
+            <span class="original-price">₹15.50 Lakh</span>
+            <span class="price-drop">(42% off)</span><br>
+            <small>Incl. all taxes & insurance</small>
+        </div>
+        
+        <div class="offer-banner animate__animated animate__fadeIn animate__delay-1s">
+            <p>Get ₹25,000 additional exchange bonus this week!</p>
+        </div>
+        
+        <a href="#" class="offer-button animate__animated animate__fadeIn animate__delay-1s">Get Best Price</a>
+        <a href="#" class="offer-button animate__animated animate__fadeIn animate__delay-1s" style="background: linear-gradient(to right, #ff4757, #e84118); box-shadow: 0px 4px 8px rgba(255,71,87,0.3);">Instant Loan Available</a>
+
+        <div class="reviews animate__animated animate__fadeIn animate__delay-2s">
+            <p><strong>127 Verified Reviews</strong> | <span>4.2 ★ Average Rating</span></p>
+            <div class="stars" id="rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="main-content">
+    <div id="specs" class="specs-container">
+        <h1 class="animate__animated animate__fadeIn">Used Scorpio N Details</h1>
+        
+        <div class="used-specs animate__animated animate__fadeIn animate__delay-1s">
+            <div class="used-spec-item">
+                <div class="used-spec-label">Manufacturing Year</div>
+                <div class="used-spec-value">June 2022</div>
+            </div>
+            <div class="used-spec-item">
+                <div class="used-spec-label">Kilometers Driven</div>
+                <div class="used-spec-value">42,387 km</div>
+            </div>
+            <div class="used-spec-item">
+                <div class="used-spec-label">Ownership</div>
+                <div class="used-spec-value">First Owner</div>
+            </div>
+            <div class="used-spec-item">
+                <div class="used-spec-label">Transmission</div>
+                <div class="used-spec-value">Manual</div>
+            </div>
+            <div class="used-spec-item">
+                <div class="used-spec-label">Fuel Type</div>
+                <div class="used-spec-value">Diesel</div>
+            </div>
+            <div class="used-spec-item">
+                <div class="used-spec-label">Insurance</div>
+                <div class="used-spec-value">Valid Until Dec 2024</div>
+            </div>
+            <div class="used-spec-item">
+                <div class="used-spec-label">Service History</div>
+                <div class="used-spec-value">5 Services Done</div>
+            </div>
+            <div class="used-spec-item">
+                <div class="used-spec-label">Warranty</div>
+                <div class="used-spec-value">Until June 2025</div>
+            </div>
+        </div>
+
+        <div class="owner-details animate__animated animate__fadeIn animate__delay-1s">
+            <h4>Owner Details</h4>
+            <div class="owner-info">
+                <div class="owner-avatar">RS</div>
+                <div>
+                    <div class="owner-name">Rahul Sharma</div>
+                    <div class="owner-rating">★★★★☆ (4.2/5)</div>
+                </div>
+            </div>
+            <div class="owner-description">
+                "I'm selling my Scorpio N as I'm relocating abroad. The car has been meticulously maintained with all services done at authorized Mahindra service centers. Never been in any accident and has all original parts."
+            </div>
+        </div>
+
+        <div class="features-box animate__animated animate__fadeIn animate__delay-1s">
+            <div class="feature-tab active" onclick="showFeature('key-features')">Key Features</div>
+            <div class="feature-tab" onclick="showFeature('condition')">Condition Report</div>
+            <div class="feature-tab" onclick="showFeature('documents')">Documents</div>
+        </div>
+
+        <div id="key-features" class="feature-content active animate__animated animate__fadeIn animate__delay-1s">
+            <h3>Key Features</h3>
+            <ul>
+                <li>✓ 2.2L mHawk Diesel Engine (130 bhp)</li>
+                <li>✓ 6-Speed Manual Transmission</li>
+                <li>✓ 7-Seater Configuration</li>
+                <li>✓ 17-inch Alloy Wheels</li>
+                <li>✓ 8-inch Touchscreen Infotainment</li>
+                <li>✓ Android Auto & Apple CarPlay</li>
+                <li>✓ Dual Airbags & ABS with EBD</li>
+                <li>✓ Rear Parking Camera</li>
+            </ul>
+        </div>
+
+        <div id="condition" class="feature-content animate__animated animate__fadeIn animate__delay-1s">
+            <h3>Condition Report</h3>
+            <ul>
+                <li>✓ Exterior: Minor scratches on rear bumper</li>
+                <li>✓ Interior: Well maintained, no stains or tears</li>
+                <li>✓ Engine: Perfect condition, no leaks</li>
+                <li>✓ Tyres: 60% tread remaining</li>
+                <li>✓ AC: Cools perfectly</li>
+                <li>✓ Electronics: All features working</li>
+                <li>✓ Suspension: No issues reported</li>
+                <li>✓ Brakes: Recently serviced</li>
+            </ul>
+        </div>
+        
+        <div id="documents" class="feature-content animate__animated animate__fadeIn animate__delay-1s">
+            <h3>Documents Available</h3>
+            <ul>
+                <li>✓ Original RC Book</li>
+                <li>✓ Insurance Papers (Valid till Dec 2024)</li>
+                <li>✓ All Service Invoices</li>
+                <li>✓ Owner Manuals</li>
+                <li>✓ Road Tax Paid Receipts</li>
+                <li>✓ PUC Certificate (Valid)</li>
+                <li>✓ Spare Key Available</li>
+                <li>✓ No Outstanding Loans</li>
+            </ul>
+        </div>
+        
+        <h2 class="animate__animated animate__fadeIn animate__delay-2s">Service History</h2>
+
+        <div class="updates animate__animated animate__fadeIn animate__delay-2s">
+            <ul>
+                <li><span class="update-date">June 2022:</span> First service at 1,000 km - Mahindra Authorized Service Center</li>
+                <li><span class="update-date">December 2022:</span> Second service at 10,000 km - Oil change and general checkup</li>
+                <li><span class="update-date">June 2023:</span> Third service at 20,000 km - Air filter replacement</li>
+                <li><span class="update-date">December 2023:</span> Fourth service at 30,000 km - Brake pads replaced</li>
+                <li><span class="update-date">May 2024:</span> Fifth service at 40,000 km - Major service with all fluids changed</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="reviews-container" id="reviews">
+        <h2 class="animate__animated animate__fadeIn">User Reviews</h2>
+       
+        <div class="review-header animate__animated animate__fadeIn animate__delay-1s">
+            <div class="rating-badge">4.2 ★</div>
+            <div class="review-count">Based on<br>127 Verified Reviews</div>
+        </div>
+       
+        <h3 class="animate__animated animate__fadeIn animate__delay-1s">What Owners Say</h3>
+       
+        <div class="review-categories animate__animated animate__fadeIn animate__delay-1s">
+            <div class="review-category active">All (127)</div>
+            <div class="review-category">Reliability (42)</div>
+            <div class="review-category">Maintenance (35)</div>
+            <div class="review-category">Performance (28)</div>
+            <div class="review-category">Value (22)</div>
+        </div>
+       
+        <div class="review-sort animate__animated animate__fadeIn animate__delay-1s">
+            <div class="sort-option active">Latest</div>
+            <div class="sort-option">Highest Rated</div>
+            <div class="sort-option">Critical</div>
+        </div>
+       
+        <div class="review-divider"></div>
+       
+        <div class="user-review animate__animated animate__fadeIn animate__delay-2s">
+            <div class="review-meta">
+                <span class="review-user">Vikram Patel</span>
+                <span class="review-date">On May 15, 2024</span>
+            </div>
+            <div class="review-rating">★★★★★</div>
+            <div class="review-title">Excellent condition for a used car</div>
+            <div class="review-text">
+                I test drove this Scorpio N and was impressed with its condition. The engine sounds smooth and all features work perfectly. The owner has maintained it very well with all service records. Negotiated to ₹9.2L which is a fair price.
+            </div>
+        </div>
+       
+        <div class="review-divider"></div>
+       
+        <div class="user-review animate__animated animate__fadeIn animate__delay-2s">
+            <div class="review-meta">
+                <span class="review-user">Priya Menon</span>
+                <span class="review-date">On May 10, 2024</span>
+            </div>
+            <div class="review-rating">★★★★☆</div>
+            <div class="review-title">Good value for money</div>
+            <div class="review-text">
+                The car has some minor scratches but mechanically it's sound. The interior is clean and the infotainment system works well. Got it inspected by my mechanic who confirmed it's in good shape. Paid ₹8.9L which I think is reasonable.
+            </div>
+        </div>
+       
+        <div class="review-divider"></div>
+       
+        <div class="user-review animate__animated animate__fadeIn animate__delay-2s">
+            <div class="review-meta">
+                <span class="review-user">Amit Joshi</span>
+                <span class="review-date">On Apr 28, 2024</span>
+            </div>
+            <div class="review-rating">★★★★☆</div>
+            <div class="review-title">Solid SUV with good history</div>
+            <div class="review-text">
+                Bought this Scorpio N last month. The service history is complete and the previous owner took good care. The diesel engine still feels powerful and gives about 14 kmpl in city. Only issue was a small dent on the rear door which I got fixed.
+            </div>
+        </div>
+       
+        <div class="review-divider"></div>
+        
+        <div class="user-review animate__animated animate__fadeIn animate__delay-2s">
+            <div class="review-meta">
+                <span class="review-user">Neha Gupta</span>
+                <span class="review-date">On Apr 20, 2024</span>
+            </div>
+            <div class="review-rating">★★★☆☆</div>
+            <div class="review-title">Decent but needed some work</div>
+            <div class="review-text">
+                The car was overall good but needed new tyres and brake pads. Negotiated the price down to ₹8.5L to account for these replacements. After fixing these issues, it's running well now. AC could be colder though.
+            </div>
+        </div>
+       
+        <div class="review-divider"></div>
+        <a href="#reviews">
+        <button class="offer-button" style="width: 100%; margin-top: 20px; background: linear-gradient(to right, #6a5af9, #5948c7);">View All 127 Reviews</button></a>
+    </div>
+</div>
+
+<section id="booking" class="animate__animated animate__fadeIn animate__delay-3s">
+    <button id="book-now-btn">Schedule Test Drive</button>
+</section>
+
+<footer class="animate__animated animate__fadeIn animate__delay-3s">
+    <p>&copy; 2025 CarWay. All rights reserved.</p>
+</footer>
+
+<script>
+    // Feature tabs functionality
+    function showFeature(featureId) {
+        // Hide all feature contents and remove active class from tabs
+        document.querySelectorAll('.feature-content').forEach(function(content) {
+            content.style.display = 'none';
+            content.classList.remove('active');
+        });
+       
+        document.querySelectorAll('.feature-tab').forEach(function(tab) {
+            tab.classList.remove('active');
+        });
+
+        // Show the selected feature content and mark tab as active
+        document.getElementById(featureId).style.display = 'block';
+        document.getElementById(featureId).classList.add('active');
+       
+        // Find the clicked tab and mark it as active
+        document.querySelectorAll('.feature-tab').forEach(function(tab) {
+            if (tab.textContent.toLowerCase().includes(featureId.replace('-', ' '))) {
+                tab.classList.add('active');
+            }
+        });
+    }
+
+    // Star rating functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const stars = document.querySelectorAll('.star');
+       
+        stars.forEach(star => {
+            star.addEventListener('mouseover', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+               
+                // Add hovered class to this star and all previous stars
+                for (let i = 0; i < value; i++) {
+                    stars[i].classList.add('hovered');
+                }
+            });
+           
+            star.addEventListener('mouseout', function() {
+                // Remove hovered class from all stars
+                stars.forEach(s => s.classList.remove('hovered'));
+            });
+           
+            star.addEventListener('click', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+               
+                // Remove selected class from all stars
+                stars.forEach(s => s.classList.remove('selected'));
+               
+                // Add selected class to clicked star and all previous stars
+                for (let i = 0; i < value; i++) {
+                    stars[i].classList.add('selected');
+                }
+               
+                console.log('User rated:', value + ' stars');
+            });
+        });
+    });
+
+    // Review category selection
+    document.querySelectorAll('.review-category').forEach(category => {
+        category.addEventListener('click', function() {
+            document.querySelectorAll('.review-category').forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+            // Here you would filter reviews by category
+        });
+    });
+
+    // Review sort option selection
+    document.querySelectorAll('.sort-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.sort-option').forEach(o => o.classList.remove('active'));
+            this.classList.add('active');
+            // Here you would sort reviews
+        });
+    });
+
+    // Book Now button functionality
+    document.getElementById('book-now-btn').addEventListener('click', function() {
+        alert('Thank you for your interest! We will contact you shortly to schedule a test drive for this used Scorpio N.');
+    });
+
+    // Initialize the first feature as active
+    document.addEventListener('DOMContentLoaded', function() {
+        showFeature('key-features');
+       
+        // Add scroll animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate__animated');
+           
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+               
+                if (elementPosition < windowHeight - 100) {
+                    const animation = element.getAttribute('class').match(/animate__(\w+)/)[1];
+                    element.classList.add(`animate__${animation}`);
+                }
+            });
+        };
+       
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Run once on load
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audi A6</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #ffa500;
+            --primary-dark: #ff8c00;
+            --secondary: #6a5af9;
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-light: #ffffff;
+            --text-muted: #aaaaaa;
+        }
+       
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+       
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        .logo {
+            font-family: Arial, sans-serif;
+            font-size: 2.1rem;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+       
+        .highlight {
+            background: linear-gradient(to right, #ffa500, #ff8c00);
+            color: #1e1e1e;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+       
+        .highlight:hover{
+            background: linear-gradient(to right, #ff8c00, #ffa500);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #1e1e1e;
+            align-items: center;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0px;
+            z-index: 100;
+            animation: fadeInDown 0.8s ease;
+        }
+       
+        header .logo img {
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+       
+        header .logo img:hover {
+            transform: scale(1.05);
+        }
+       
+        header nav {
+            display: flex;
+            align-items: center;
+        }
+       
+        header nav ul {
+            list-style: none;
+            display: flex;
+        }
+       
+        header nav ul li {
+            margin-left: 20px;
+            position: relative;
+        }
+       
+        header nav ul li a {
+            color: #ffa500;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+       
+        header nav ul li a:hover {
+            background-color: rgba(255,165,0,0.2);
+            transform: translateY(-2px);
+        }
+       
+        .book-now-nav {
+            padding: 10px 20px;
+            background: linear-gradient(to right, #ffa500, #ff8c00);
+            color: white;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(255,165,0,0.3);
+        }
+       
+        .book-now-nav:hover {
+            background: linear-gradient(to right, #ff8c00, #ffa500);
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 12px rgba(255,140,0,0.4);
+        }
+       
+        #car-details {
+            display: flex;
+            padding: 30px;
+            background-color: #1e1e1e;
+            margin: 30px auto;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease;
+        }
+       
+        #car-details:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+        }
+       
+        #car-details .car-images {
+            flex: 1;
+            padding-top: 25px;
+            padding-right: 30px;
+        }
+       
+        #car-details .car-images img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: all 0.5s ease;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+        }
+       
+        #car-details .car-images img:hover {
+            transform: scale(1.02);
+        }
+       
+        #car-details .car-info {
+            flex: 1.5;
+            padding-left: 30px;
+        }
+       
+        #car-details .car-info h1 {
+            margin-bottom: 15px;
+            font-size: 40px;
+            color: #ffa500;
+            animation: fadeInRight 1s ease;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+        }
+       
+        #car-details .car-info .reviews-rate {
+            font-size: 14px;
+            color: #aaaaaa;
+            margin-top: 5px;
+        }
+       
+        #car-details .car-info .description {
+            margin-bottom: 20px;
+            color: #ffffff;
+            line-height: 1.7;
+        }
+       
+        #car-details .car-info .price {
+            font-size: 29px;
+            color: #ffa500;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+       
+        #car-details .car-info .price small {
+            font-size: 14px;
+            color: #aaaaaa;
+        }
+       
+        #car-details .car-info .reviews {
+            margin-top: 25px;
+        }
+       
+        .offer-button {
+            padding: 12px 25px;
+            background: linear-gradient(to right, #6a5af9, #5948c7);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(106,90,249,0.3);
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+        }
+       
+        .offer-button:hover {
+            background: linear-gradient(to right, #5948c7, #6a5af9);
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 12px rgba(106,90,249,0.4);
+        }
+       
+        .star {
+            font-size: 24px;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+       
+        .star:hover,
+        .star.hovered,
+        .star.selected {
+            color: #ffa500;
+            transform: scale(1.2);
+        }
+   
+        .reviews {
+            font-family: Arial, sans-serif;
+            margin: 10px 0;
+        }
+   
+        .reviews p {
+            margin-bottom: 10px;
+        }
+   
+        .stars {
+            display: flex;
+            gap: 5px;
+        }
+       
+        .main-content {
+            display: flex;
+            max-width: 1200px;
+            margin: 30px auto;
+            gap: 30px;
+        }
+       
+        .specs-container {
+            flex: 2;
+            padding: 30px;
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease;
+        }
+       
+        .specs-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+        }
+       
+        .reviews-container {
+            flex: 1;
+            width: 50%;
+            padding: 30px;
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease;
+        }
+       
+        .reviews-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+        }
+       
+        h1, h2, h3 {
+            color: #ffa500;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+       
+        h1::after, h2::after, h3::after {
+            content: '';
+            position: absolute;
+            left: 0px;
+            bottom: -10px;
+            width: 60px;
+            height: 3px;
+            background: #ffa500;
+        }
+       
+        .features-box {
+            display: flex;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+       
+        .feature-tab {
+            flex: 1;
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            color: #ffffff;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+        }
+       
+        .feature-tab:hover {
+            background: linear-gradient(to right, #ffa500, #ff8c00);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0px 6px 12px rgba(255,165,0,0.3);
+        }
+       
+        .feature-tab.active {
+            background: linear-gradient(to right, #ffa500, #ff8c00);
+            color: white;
+        }
+       
+        .feature-content {
+            display: none;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+            margin-top: 15px;
+            animation: fadeIn 0.5s ease;
+        }
+       
+        .feature-content.active {
+            display: block;
+        }
+       
+        .feature-content ul {
+            list-style-type: none;
+        }
+       
+        .feature-content ul li {
+            background: #444;
+            margin: 10px 0px;
+            padding: 15px;
+            border-left: 4px solid #ffa500;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+       
+        .feature-content ul li:hover {
+            transform: translateX(5px);
+            background: #555;
+        }
+       
+        .updates ul {
+            list-style-type: none;
+        }
+       
+        .updates ul li {
+            background: #333;
+            margin: 15px 0px;
+            padding: 20px;
+            border-left: 4px solid #ffa500;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+       
+        .updates ul li:hover {
+            transform: translateX(5px);
+            background: #444;
+        }
+       
+        .update-date {
+            color: #ffa500;
+            font-weight: bold;
+        }
+       
+        /* Review Section Styles */
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+       
+        .rating-badge {
+            font-size: 40px;
+            font-weight: bold;
+            color: #ffa500;
+            margin-right: 20px;
+        }
+       
+        .review-count {
+            color: #aaaaaa;
+            font-size: 14px;
+        }
+       
+        .review-categories {
+            display: flex;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+       
+        .review-category {
+            padding: 8px 15px;
+            background-color: #333;
+            border-radius: 20px;
+            font-size: 14px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+       
+        .review-category:hover, .review-category.active {
+            background: linear-gradient(to right, #ffa500, #ff8c00);
+            color: white;
+        }
+       
+        .review-category.active {
+            font-weight: bold;
+        }
+       
+        .review-sort {
+            display: flex;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+       
+        .sort-option {
+            color: #aaaaaa;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+       
+        .sort-option:hover, .sort-option.active {
+            color: #ffa500;
+            font-weight: bold;
+        }
+       
+        .review-divider {
+            height: 1px;
+            background-color: #444;
+            margin: 20px 0px;
+        }
+       
+        .user-review {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+       
+        .user-review:last-child {
+            border-bottom: none;
+        }
+       
+        .review-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+       
+        .review-user {
+            font-weight: bold;
+            color: #ffa500;
+        }
+       
+        .review-date {
+            color: #aaaaaa;
+            font-size: 13px;
+        }
+       
+        .review-rating {
+            color: #ffa500;
+            margin-bottom: 5px;
+        }
+       
+        .review-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+       
+        .review-text {
+            color: #ffffff;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+       
+        .read-more {
+            color: #ffa500;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+       
+        .read-more:hover {
+            text-decoration: underline;
+        }
+       
+        section {
+            padding: 30px;
+            background-color: #1e1e1e;
+            margin: 30px auto;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease;
+        }
+       
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+        }
+       
+        #book-now-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto;
+            padding: 15px;
+            font-size: 19px;
+            background: linear-gradient(to right, #ffa500, #ff8c00);
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(255,165,0,0.3);
+            animation: pulse 2s infinite;
+        }
+       
+        #book-now-btn:hover {
+            background: linear-gradient(to right, #ff8c00, #ffa500);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0px 10px 20px rgba(255,140,0,0.4);
+            animation: none;
+        }
+       
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            margin-top: 50px;
+            animation: fadeInUp 1s ease;
+        }
+       
+        footer p {
+            color: #aaaaaa;
+        }
+       
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+       
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            #car-details {
+                flex-direction: column;
+            }
+           
+            #car-details .car-images {
+                padding-right: 0px;
+                margin-bottom: 30px;
+            }
+           
+            #car-details .car-info {
+                padding-left: 0px;
+            }
+           
+            .features-box {
+                flex-direction: column;
+            }
+           
+            .main-content {
+                flex-direction: column;
+            }
+        }
+       
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+           
+            header nav {
+                margin-top: 15px;
+                width: 100%;
+                justify-content: center;
+            }
+           
+            header nav ul li {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+           
+            .book-now-nav {
+                margin-left: 10px;
+            }
+           
+            #car-details .car-info h1 {
+                font-size: 32px;
+            }
+           
+            .specs-container, .reviews-container {
+                padding: 20px;
+            }
+        }
+       
+        @media (max-width: 576px) {
+            header nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+           
+            header nav ul li {
+                margin: 5px;
+            }
+           
+            .container, #car-details, section {
+                padding: 20px;
+            }
+           
+            .review-categories {
+                gap: 5px;
+            }
+           
+            .review-category {
+                padding: 5px 10px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" style="text-decoration: none"><div class="logo">Car<span class="highlight">Way</span></div></a>
+    <nav>
+        <ul>
+            <li><a href="#specs">Features</a></li>
+            <li><a href="#specs">Specifications</a></li>
+            <li><a href="#price">Price</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+        </ul>
+        <a href="#booking" class="book-now-nav">Book Now</a>
+    </nav>
+</header>
+
+<section id="car-details">
+    <div class="car-images">
+        <img src="https://stimg.cardekho.com/images/carexteriorimages/630x420/Audi/A6/10552/1708935437947/front-left-side-47.jpg" alt="Audi A6 - Premium Luxury Sedan" class="animate__animated animate__fadeInLeft">
+    </div>
+    <div class="car-info">
+        <h1 class="animate__animated animate__fadeInRight">Audi A6</h1>
+
+        <p class="reviews-rate animate__animated animate__fadeIn animate__delay-1s">15,896 Reviews | Rate & Win ₹1000</p>
+        <p class="description animate__animated animate__fadeIn animate__delay-1s">The Audi A6 redefines executive luxury with its progressive design, cutting-edge technology, and dynamic performance. With its sophisticated styling, virtual cockpit, and quattro all-wheel drive, the A6 offers a perfect balance of comfort and sportiness. Experience Audi's Vorsprung durch Technik (Progress through Technology) in this premium sedan.</p>
+        <div class="price animate__animated animate__fadeIn animate__delay-1s">
+            <span>₹65.72 - 72.00 Lakh*</span><br>
+            <small>*Ex-showroom Price in New Delhi</small>
+        </div>
+        <a href="#" class="offer-button animate__animated animate__fadeIn animate__delay-1s">Check Current Offers</a>
+
+        <div class="reviews animate__animated animate__fadeIn animate__delay-2s">
+            <p><strong>15,896 Reviews </strong> | <span>Rate & Win ₹1000</span></p>
+            <div class="stars" id="rating">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="main-content">
+    <div id="specs" class="specs-container">
+        <h1 class="animate__animated animate__fadeIn">Audi A6 specs & features</h1>
+
+        <div class="features-box animate__animated animate__fadeIn animate__delay-1s">
+            <div class="feature-tab active" onclick="showFeature('key-features')">Key Features</div>
+            <div class="feature-tab" onclick="showFeature('top-features')">Top Features</div>
+        </div>
+
+        <div id="key-features" class="feature-content active animate__animated animate__fadeIn animate__delay-1s">
+            <h3>Key Features</h3>
+            <ul>
+                <li>Engine: 2.0L TFSI Turbocharged Inline-4 (Petrol)</li>
+                <li>Power: 245 bhp @ 5000-6000 rpm</li>
+                <li>Torque: 370 Nm @ 1600-4500 rpm</li>
+                <li>Transmission: 7-speed S tronic Dual-Clutch Automatic</li>
+                <li>Drivetrain: quattro Permanent All-Wheel Drive</li>
+                <li>0-100 km/h: 6.8 seconds</li>
+                <li>Top Speed: 250 km/h (electronically limited)</li>
+                <li>Fuel Efficiency: 13.2 km/l (ARAI)</li>
+                <li>Seating Capacity: 5</li>
+                <li>Boot Space: 530 liters</li>
+            </ul>
+        </div>
+
+        <div id="top-features" class="feature-content animate__animated animate__fadeIn animate__delay-1s">
+            <h3>Top Features</h3>
+            <ul>
+                <li>✓ Audi Virtual Cockpit Plus (12.3-inch)</li>
+                <li>✓ MMI Navigation Plus with MMI Touch</li>
+                <li>✓ Matrix LED Headlights with LED DRLs</li>
+                <li>✓ quattro with Ultra Technology</li>
+                <li>✓ Bang & Olufsen 3D Sound System</li>
+                <li>✓ Valcona Leather Upholstery with Front Seat Memory</li>
+                <li>✓ 8 Airbags with Multi-Collision Braking</li>
+                <li>✓ Wireless Phone Charging & Apple CarPlay/Android Auto</li>
+                <li>✓ 30-color Ambient Lighting Package</li>
+                <li>✓ Panoramic Sunroof</li>
+                <li>✓ 4-Zone Automatic Climate Control</li>
+                <li>✓ Audi Pre Sense Basic & Rear</li>
+                <li>✓ Park Assist with 360° Camera</li>
+                <li>✓ Adaptive Cruise Control with Traffic Jam Assist</li>
+            </ul>
+        </div>
+        <br>
+        <h2 class="animate__animated animate__fadeIn animate__delay-2s">Audi A6 latest updates</h2>
+
+        <div class="updates animate__animated animate__fadeIn animate__delay-2s">
+            <ul>
+                <li><span class="update-date">July 18, 2025:</span> New "District Green" metallic paint option introduced</li>
+                <li><span class="update-date">June 30, 2025:</span> OTA update adds new voice assistant capabilities</li>
+                <li><span class="update-date">May 25, 2025:</span> Audi expands service network to 140+ cities in India</li>
+                <li><span class="update-date">April 15, 2025:</span> New Black Edition package launched</li>
+                <li><span class="update-date">March 8, 2025:</span> Enhanced driver assistance features added across range</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="reviews-container" id="reviews">
+        <h2 class="animate__animated animate__fadeIn">Audi A6 user reviews</h2>
+       
+        <div class="review-header animate__animated animate__fadeIn animate__delay-1s">
+            <div class="rating-badge">4.6 ★</div>
+            <div class="review-count">Based on<br>392 User Reviews</div>
+        </div>
+       
+        <h3 class="animate__animated animate__fadeIn animate__delay-1s">Popular Mentions</h3>
+       
+        <div class="review-categories animate__animated animate__fadeIn animate__delay-1s">
+            <div class="review-category active">All (392)</div>
+            <div class="review-category">Performance (142)</div>
+            <div class="review-category">Comfort (185)</div>
+            <div class="review-category">Luxury (198)</div>
+            <div class="review-category">Tech (210)</div>
+            <div class="review-category">Safety (165)</div>
+            <div class="review-category">Value (175)</div>
+        </div>
+       
+        <div class="review-sort animate__animated animate__fadeIn animate__delay-1s">
+            <div class="sort-option active">Latest</div>
+            <div class="sort-option">Helpful</div>
+            <div class="sort-option">Critical</div>
+        </div>
+       
+        <div class="review-divider"></div>
+       
+        <div class="user-review animate__animated animate__fadeIn animate__delay-2s">
+            <div class="review-meta">
+                <span class="review-user">Rajiv Khanna</span>
+                <span class="review-date">On July 12, 2025</span>
+            </div>
+            <div class="review-rating">★★★★★</div>
+            <div class="review-title">Executive luxury at its finest</div>
+            <div class="review-text">
+                The Audi A6 is a masterpiece of German engineering. The build quality is exceptional, and the interior is a technological marvel with the virtual cockpit. The quattro all-wheel drive provides incredible confidence in all conditions. The Bang & Olufsen sound system is simply outstanding. The ride quality strikes a perfect balance between comfort and sportiness, making it ideal for both chauffeur-driven and self-driven scenarios.
+            </div>
+            <a class="read-more">Read More</a>
+        </div>
+       
+        <div class="review-divider"></div>
+       
+        <div class="user-review animate__animated animate__fadeIn animate__delay-2s">
+            <div class="review-meta">
+                <span class="review-user">Neha Patel</span>
+                <span class="review-date">On June 28, 2025</span>
+            </div>
+            <div class="review-rating">★★★★★</div>
+            <div class="review-title">Technology that impresses every day</div>
+            <div class="review-text">
+                Coming from a Japanese luxury brand, the A6 has been a revelation. The MMI system is incredibly intuitive, and the virtual cockpit is a game-changer. The matrix LED headlights are worth every penny for night driving. The cabin is whisper-quiet at highway speeds. The 30-color ambient lighting creates a wonderful atmosphere. Fuel efficiency is better than expected for a car with this performance and quattro system.
+            </div>
+            <a class="read-more">Read More</a>
+        </div>
+       
+        <div class="review-divider"></div>
+       
+        <div class="user-review animate__animated animate__fadeIn animate__delay-2s">
+            <div class="review-meta">
+                <span class="review-user">Arjun Mehta</span>
+                <span class="review-date">On June 15, 2025</span>
+            </div>
+            <div class="review-rating">★★★★☆</div>
+            <div class="review-title">Sets benchmarks in its segment</div>
+            <div class="review-text">
+                The latest A6 is a significant step up from its predecessor. The digital interfaces are stunning, and the materials used throughout the cabin feel premium. The driving dynamics strike a perfect balance between comfort and sportiness. My only minor complaint is that some of the more advanced driver assistance features are optional rather than standard. Service experience at the dealership has been excellent with prompt attention.
+            </div>
+            <a class="read-more">Read More</a>
+        </div>
+       
+        <div class="review-divider"></div>
+        <a href="#reviews">
+        <button class="offer-button" style="width: 100%; margin-top: 20px;">View All Reviews</button></a>
+    </div>
+</div>
+
+<section id="booking" class="animate__animated animate__fadeIn animate__delay-3s">
+    <button id="book-now-btn">Book Your Audi A6 Now</button>
+</section>
+
+<footer class="animate__animated animate__fadeIn animate__delay-3s">
+    <p>&copy; 2025 CarWay. All rights reserved.</p>
+</footer>
+
+<script>
+    // Feature tabs functionality
+    function showFeature(featureId) {
+        // Hide all feature contents and remove active class from tabs
+        document.querySelectorAll('.feature-content').forEach(function(content) {
+            content.style.display = 'none';
+            content.classList.remove('active');
+        });
+       
+        document.querySelectorAll('.feature-tab').forEach(function(tab) {
+            tab.classList.remove('active');
+        });
+
+        // Show the selected feature content and mark tab as active
+        document.getElementById(featureId).style.display = 'block';
+        document.getElementById(featureId).classList.add('active');
+       
+        // Find the clicked tab and mark it as active
+        document.querySelectorAll('.feature-tab').forEach(function(tab) {
+            if (tab.textContent.toLowerCase().includes(featureId.replace('-', ' '))) {
+                tab.classList.add('active');
+            }
+        });
+    }
+
+    // Star rating functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const stars = document.querySelectorAll('.star');
+       
+        stars.forEach(star => {
+            star.addEventListener('mouseover', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+               
+                // Add hovered class to this star and all previous stars
+                for (let i = 0; i < value; i++) {
+                    stars[i].classList.add('hovered');
+                }
+            });
+           
+            star.addEventListener('mouseout', function() {
+                // Remove hovered class from all stars
+                stars.forEach(s => s.classList.remove('hovered'));
+            });
+           
+            star.addEventListener('click', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+               
+                // Remove selected class from all stars
+                stars.forEach(s => s.classList.remove('selected'));
+               
+                // Add selected class to clicked star and all previous stars
+                for (let i = 0; i < value; i++) {
+                    stars[i].classList.add('selected');
+                }
+               
+                console.log('User rated:', value + ' stars');
+            });
+        });
+    });
+
+    // Review category selection
+    document.querySelectorAll('.review-category').forEach(category => {
+        category.addEventListener('click', function() {
+            document.querySelectorAll('.review-category').forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+            // Here you would filter reviews by category
+        });
+    });
+
+    // Review sort option selection
+    document.querySelectorAll('.sort-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.sort-option').forEach(o => o.classList.remove('active'));
+            this.classList.add('active');
+            // Here you would sort reviews
+        });
+    });
+
+    // Book Now button functionality
+    document.getElementById('book-now-btn').addEventListener('click', function() {
+        alert('Thank you for your interest in the Audi A6! Our sales team will contact you shortly to complete your booking.');
+    });
+
+    // Initialize the first feature as active
+    document.addEventListener('DOMContentLoaded', function() {
+        showFeature('key-features');
+       
+        // Add scroll animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate__animated');
+           
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+               
+                if (elementPosition < windowHeight - 100) {
+                    const animation = element.getAttribute('class').match(/animate__(\w+)/)[1];
+                    element.classList.add(`animate__${animation}`);
+                }
+            });
+        };
+       
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Run once on load
+    });
+</script>
+</body>
+</html>

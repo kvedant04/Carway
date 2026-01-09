@@ -1,0 +1,3320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CarWay - Drive Your Dreams</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+:root {
+--primary: #ffa500;
+--primary-dark: #ff8c00;
+--secondary: #6a5af9;
+--dark-bg: #121212;
+--card-bg: #1e1e1e;
+--text-light: #ffffff;
+--text-muted: #aaaaaa;
+--success: #4CAF50;
+--error: #F44336;
+--warning: #FFC107;
+--info: #2196F3;
+}
+
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background-color: var(--dark-bg);
+color: var(--text-light);
+margin: 0;
+padding: 0;
+line-height: 1.6;
+}
+
+.container {
+padding: 20px;
+max-width: 1700px;
+margin: 0 auto;
+}
+
+.logo {
+font-family: Arial, sans-serif;
+font-size: 2.7rem;
+font-weight: bold;
+text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--text-light);
+cursor: pointer;
+animation: fadeInDown 1s ease;
+margin-left: 0;
+width: 100%;
+}
+
+.highlight {
+background: linear-gradient(to right, #ffa500, #ff8c00);
+color: #1e1e1e;
+padding: 5px 10px;
+border-radius: 5px;
+margin-left: 5px;
+cursor: pointer;
+}
+
+.highlight:hover{
+background: linear-gradient(to right, #ff8c00, #ffa500);
+}
+
+/* Header Styles */
+.header {
+text-align: center;
+margin-bottom: 30px;
+position: relative;
+padding: 20px 0;
+background: linear-gradient(135deg, rgba(30,30,30,0.8) 0%, rgba(18,18,18,0.9) 100%);
+border-radius: 10px;
+box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.header p {
+font-size: 1.2rem;
+color: var(--text-muted);
+animation: fadeIn 1.5s ease;
+margin-top: 10px;
+text-align: center;
+width: 100%;
+}
+
+/* Button Styles */
+.login-btn {
+position: absolute;
+top: 20px;
+right: 20px;
+background-color: var(--primary);
+color: white;
+padding: 12px 25px;
+border: none;
+border-radius: 30px;
+font-size: 16px;
+cursor: pointer;
+transition: all 0.3s ease;
+box-shadow: 0 4px 8px rgba(255,165,0,0.3);
+font-weight: 600;
+}
+
+.login-btn:hover {
+background-color: var(--primary-dark);
+transform: translateY(-2px);
+box-shadow: 0 6px 12px rgba(255,140,0,0.4);
+}
+
+.login-btn:active {
+transform: translateY(0);
+}
+
+/* Profile button styles */
+.profile-btn {
+position: absolute;
+top: 20px;
+right: 20px;
+background-color: var(--primary);
+color: white;
+padding: 12px 25px;
+border: none;
+border-radius: 30px;
+font-size: 16px;
+cursor: pointer;
+transition: all 0.3s ease;
+box-shadow: 0 4px 8px rgba(255,165,0,0.3);
+font-weight: 600;
+display: none;
+}
+
+.profile-btn:hover {
+background-color: var(--primary-dark);
+transform: translateY(-2px);
+box-shadow: 0 6px 12px rgba(255,140,0,0.4);
+}
+
+.profile-btn:active {
+transform: translateY(0);
+}
+
+.profile-btn.logged-in {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.profile-pic {
+width: 24px;
+height: 24px;
+border-radius: 50%;
+background-color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--primary);
+font-weight: bold;
+font-size: 12px;
+}
+
+/* Dropdown menu styles */
+.profile-dropdown {
+position: absolute;
+top: 60px;
+right: 20px;
+background-color: var(--card-bg);
+border-radius: 8px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+z-index: 1000;
+display: none;
+width: 200px;
+overflow: hidden;
+border: 1px solid rgba(255,255,255,0.1);
+}
+
+.profile-dropdown.show {
+display: block;
+animation: fadeInDown 0.3s ease;
+}
+
+.dropdown-item {
+padding: 12px 20px;
+color: var(--text-light);
+cursor: pointer;
+transition: all 0.2s ease;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.dropdown-item:hover {
+background-color: rgba(255,165,0,0.1);
+color: var(--primary);
+}
+
+.dropdown-divider {
+height: 1px;
+background-color: rgba(255,255,255,0.1);
+margin: 0;
+}
+
+/* Notification styles */
+.notification {
+position: fixed;
+top: 20px;
+right: 20px;
+background: linear-gradient(135deg, #6a5af9, #5948c7);
+color: white;
+padding: 15px 25px;
+border-radius: 8px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+z-index: 1000;
+display: none;
+align-items: center;
+max-width: 350px;
+animation: slideInRight 0.5s ease;
+}
+
+.notification.show {
+display: flex;
+animation: slideInRight 0.5s ease, fadeOut 0.5s ease 2.5s forwards;
+}
+
+.notification-icon {
+margin-right: 15px;
+font-size: 24px;
+}
+
+.notification-content h4 {
+margin: 0 0 5px 0;
+font-size: 16px;
+}
+
+.notification-content p {
+margin: 0;
+font-size: 14px;
+opacity: 0.9;
+}
+
+/* Notification styles for different login methods */
+.notification.google {
+background: linear-gradient(135deg, #60c2fb, #34A853);
+}
+
+.notification.facebook {
+background: linear-gradient(135deg, #1877F2, #0A58CA);
+}
+
+.notification.email {
+background: linear-gradient(135deg, #6a5af9, #5948c7);
+}
+
+.notification.success {
+background: linear-gradient(135deg, var(--success), #2E7D32);
+}
+
+.notification.error {
+background: linear-gradient(135deg, var(--error), #C62828);
+}
+
+.notification.info {
+background: linear-gradient(135deg, var(--info), #1565C0);
+}
+
+/* Animation keyframes */
+@keyframes slideInRight {
+from {
+transform: translateX(100%);
+opacity: 0;
+}
+to {
+transform: translateX(0);
+opacity: 1;
+}
+}
+
+@keyframes fadeOut {
+to {
+opacity: 0;
+transform: translateY(-20px);
+}
+}
+
+@keyframes fadeInDown {
+from {
+opacity: 0;
+transform: translateY(-20px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* Section Styles */
+.car-section, .connect-section, .about-section {
+margin-bottom: 40px;
+background-color: var(--card-bg);
+border-radius: 15px;
+padding: 30px;
+text-align: center;
+max-width: 100%;
+margin: 0 auto 40px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+transition: all 0.3s ease;
+}
+
+.car-section:hover, .connect-section:hover, .about-section:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.car-section h2 {
+font-size: 2.5rem;
+color: var(--primary);
+text-align: center;
+margin-bottom: 30px;
+position: relative;
+display: inline-block;
+}
+
+.car-section h2::after {
+content: '';
+position: absolute;
+left: 50%;
+bottom: -10px;
+transform: translateX(-50%);
+width: 100px;
+height: 3px;
+background: var(--primary);
+}
+
+/* Car List Styles */
+.car-list {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 25px;
+justify-content: center;
+}
+
+.car {
+background-color: var(--card-bg);
+border-radius: 15px;
+overflow: hidden;
+text-align: center;
+width: 100%;
+transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+position: relative;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.car:hover {
+transform: translateY(-10px) scale(1.03);
+box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+z-index: 2;
+}
+
+.car::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 5px;
+background: linear-gradient(to right, var(--primary), var(--secondary));
+opacity: 0;
+transition: opacity 0.3s ease;
+}
+
+.car:hover::before {
+opacity: 1;
+}
+
+.car img {
+width: 100%;
+height: 200px;
+object-fit: cover;
+transition: all 0.5s ease;
+}
+
+.car:hover img {
+transform: scale(1.05);
+}
+
+.car-details {
+padding: 20px;
+position: relative;
+z-index: 1;
+}
+
+.car-title {
+font-size: 1.2rem;
+font-weight: bold;
+margin: 0 0 10px;
+color: var(--text-light);
+transition: all 0.3s ease;
+}
+
+.car:hover .car-title {
+color: var(--primary);
+}
+
+.car-price {
+font-size: 1.1rem;
+color: var(--primary);
+font-weight: 600;
+transition: all 0.3s ease;
+}
+
+.car:hover .car-price {
+transform: scale(1.1);
+}
+
+#used-mercedes, #used-scorpio, #used-xev, #used-curvv {
+text-decoration: none;
+}
+
+/* Enhanced Car Comparison Section */
+.comparison-section {
+background-color: var(--card-bg);
+border-radius: 15px;
+padding: 30px;
+margin: 40px auto;
+max-width: 100%;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+transition: all 0.3s ease;
+position: relative;
+overflow: hidden;
+}
+
+.comparison-section::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 5px;
+background: linear-gradient(to right, var(--primary), var(--secondary));
+}
+
+.comparison-section:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.comparison-section h2 {
+font-size: 32px;
+color: var(--primary);
+text-align: center;
+margin-bottom: 30px;
+position: relative;
+padding-bottom: 15px;
+}
+
+.comparison-section h2::after {
+content: '';
+position: absolute;
+left: 50%;
+bottom: 0;
+transform: translateX(-50%);
+width: 100px;
+height: 3px;
+background: var(--primary);
+}
+
+.comparison-controls {
+display: flex;
+justify-content: center;
+gap: 20px;
+margin-bottom: 30px;
+flex-wrap: wrap;
+align-items: center;
+}
+
+.comparison-select-container {
+position: relative;
+min-width: 250px;
+}
+
+.comparison-select-container::after {
+content: '\f078';
+font-family: 'Font Awesome 5 Free';
+font-weight: 900;
+position: absolute;
+top: 50%;
+right: 15px;
+transform: translateY(-50%);
+color: var(--text-light);
+pointer-events: none;
+}
+
+.comparison-select {
+width: 100%;
+padding: 12px 15px;
+border: 1px solid rgba(255,255,255,0.2);
+border-radius: 8px;
+background-color: #333;
+color: white;
+font-size: 16px;
+cursor: pointer;
+transition: all 0.3s ease;
+appearance: none;
+-webkit-appearance: none;
+-moz-appearance: none;
+}
+
+.comparison-select:focus {
+outline: none;
+border-color: var(--primary);
+box-shadow: 0 0 0 3px rgba(255,165,0,0.2);
+}
+
+.compare-btn {
+background: linear-gradient(to right, var(--secondary), #5948c7);
+color: white;
+border: none;
+padding: 12px 25px;
+border-radius: 8px;
+font-size: 16px;
+cursor: pointer;
+font-weight: 600;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.compare-btn:hover {
+background: linear-gradient(to right, #5948c7, var(--secondary));
+transform: translateY(-2px);
+box-shadow: 0 6px 12px rgba(106,90,249,0.4);
+}
+
+.compare-btn i {
+font-size: 14px;
+}
+
+.comparison-results {
+display: none;
+margin-top: 30px;
+animation: fadeIn 0.5s ease;
+}
+
+.comparison-header {
+display: flex;
+background: linear-gradient(to right, rgba(106,90,249,0.1), rgba(255,165,0,0.1));
+border-radius: 8px 8px 0 0;
+overflow: hidden;
+}
+
+.comparison-car {
+flex: 1;
+padding: 15px;
+text-align: center;
+position: relative;
+}
+
+.comparison-car-image {
+width: 100%;
+height: 180px;
+object-fit: contain;
+margin-bottom: 15px;
+border-radius: 8px;
+transition: all 0.3s ease;
+}
+
+.comparison-car-image:hover {
+transform: scale(1.05);
+}
+
+.comparison-car-name {
+font-weight: 600;
+color: var(--primary);
+margin-bottom: 5px;
+font-size: 18px;
+}
+
+.comparison-car-price {
+color: var(--text-light);
+font-size: 16px;
+margin-bottom: 10px;
+}
+
+.comparison-features {
+background-color: #2a2a2a;
+border-radius: 0 0 8px 8px;
+overflow: hidden;
+}
+
+.comparison-row {
+display: flex;
+border-bottom: 1px solid rgba(255,255,255,0.05);
+transition: all 0.3s ease;
+}
+
+.comparison-row:hover {
+background-color: rgba(255,255,255,0.03);
+}
+
+.comparison-feature-name {
+flex: 0 0 200px;
+padding: 15px;
+font-weight: 600;
+color: var(--primary);
+background-color: rgba(0,0,0,0.1);
+display: flex;
+align-items: center;
+}
+
+.comparison-feature-value {
+flex: 1;
+padding: 15px;
+text-align: center;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.comparison-highlight {
+background-color: rgba(255,165,0,0.1);
+position: relative;
+}
+
+.comparison-highlight::after {
+content: '✓';
+position: absolute;
+right: 10px;
+color: var(--primary);
+font-weight: bold;
+}
+
+.comparison-actions {
+display: flex;
+justify-content: center;
+gap: 15px;
+margin-top: 30px;
+}
+
+.action-btn {
+padding: 10px 20px;
+border-radius: 6px;
+font-weight: 500;
+cursor: pointer;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.action-btn.primary {
+background: linear-gradient(to right, var(--primary), var(--primary-dark));
+color: #1e1e1e;
+}
+
+.action-btn.secondary {
+background: transparent;
+border: 1px solid var(--primary);
+color: var(--primary);
+}
+
+.action-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.no-comparison {
+text-align: center;
+padding: 40px;
+color: var(--text-muted);
+font-size: 16px;
+}
+
+/* Enhanced Chatbot Widget */
+.chatbot-widget {
+position: fixed;
+bottom: 30px;
+right: 30px;
+width: 60px;
+height: 60px;
+background: linear-gradient(to right, var(--secondary), #5948c7);
+color: white;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 24px;
+cursor: pointer;
+box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+z-index: 997;
+transition: all 0.3s ease;
+}
+
+.chatbot-widget:hover {
+transform: scale(1.1);
+box-shadow: 0 8px 20px rgba(106,90,249,0.4);
+}
+
+.chatbot-container {
+position: fixed;
+bottom: 100px;
+right: 30px;
+width: 350px;
+height: 500px;
+background-color: white;
+border-radius: 15px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+z-index: 996;
+display: none;
+flex-direction: column;
+overflow: hidden;
+transform: translateY(20px);
+opacity: 0;
+transition: all 0.3s ease;
+}
+
+.chatbot-container.show {
+display: flex;
+transform: translateY(0);
+opacity: 1;
+}
+
+.chatbot-header {
+background: linear-gradient(to right, var(--secondary), #5948c7);
+color: white;
+padding: 15px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.chatbot-title {
+font-weight: 600;
+display: flex;
+align-items: center;
+gap: 10px;
+font-size: 16px;
+}
+
+.chatbot-close {
+cursor: pointer;
+font-size: 20px;
+transition: all 0.3s ease;
+}
+
+.chatbot-close:hover {
+transform: rotate(90deg);
+}
+
+.chatbot-messages {
+flex: 1;
+padding: 15px;
+overflow-y: auto;
+background-color: #f9f9f9;
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.message {
+max-width: 80%;
+padding: 12px 16px;
+border-radius: 18px;
+font-size: 14px;
+line-height: 1.4;
+position: relative;
+animation: fadeIn 0.3s ease;
+}
+
+.bot-message {
+background-color: #f1f1f1;
+color: #333;
+border-top-left-radius: 5px;
+align-self: flex-start;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.user-message {
+background: linear-gradient(to right, var(--primary), var(--primary-dark));
+color: white;
+border-top-right-radius: 5px;
+align-self: flex-end;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.chatbot-input {
+display: flex;
+padding: 15px;
+border-top: 1px solid #eee;
+background-color: white;
+}
+
+.chatbot-input input {
+flex: 1;
+padding: 12px 15px;
+border: 1px solid #ddd;
+border-radius: 30px;
+outline: none;
+font-size: 14px;
+transition: all 0.3s ease;
+}
+
+.chatbot-input input:focus {
+border-color: var(--secondary);
+box-shadow: 0 0 0 2px rgba(106,90,249,0.2);
+}
+
+.chatbot-input button {
+background: linear-gradient(to right, var(--secondary), #5948c7);
+color: white;
+border: none;
+width: 42px;
+height: 42px;
+border-radius: 50%;
+margin-left: 10px;
+cursor: pointer;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.chatbot-input button:hover {
+background: linear-gradient(to right, #5948c7, var(--secondary));
+transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+.comparison-controls {
+flex-direction: column;
+}
+
+.comparison-select-container {
+width: 100%;
+}
+
+.comparison-header {
+flex-direction: column;
+}
+
+.comparison-car {
+padding: 15px;
+border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.comparison-row {
+flex-direction: column;
+}
+
+.comparison-feature-name {
+flex: 1;
+padding: 10px 15px;
+border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.comparison-feature-value {
+padding: 10px 15px;
+text-align: left;
+justify-content: flex-start;
+}
+
+.comparison-highlight::after {
+top: 10px;
+right: 15px;
+}
+
+.chatbot-container {
+width: 90%;
+right: 5%;
+height: 60vh;
+bottom: 80px;
+}
+}
+
+/* Featured Offers Section */
+.offers-section {
+background-color: var(--card-bg);
+border-radius: 15px;
+padding: 30px;
+margin: 40px auto;
+max-width: 100%;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+transition: all 0.3s ease;
+}
+
+.offers-section:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.offers-section h2 {
+font-size: 2.2rem;
+color: var(--primary);
+text-align: center;
+margin-bottom: 30px;
+position: relative;
+}
+
+.offers-section h2::after {
+content: '';
+position: absolute;
+left: 50%;
+bottom: -10px;
+transform: translateX(-50%);
+width: 100px;
+height: 3px;
+background: var(--primary);
+}
+
+.offers-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+gap: 25px;
+}
+
+.offer-card {
+background-color: #2a2a2a;
+border-radius: 10px;
+overflow: hidden;
+transition: all 0.3s ease;
+position: relative;
+}
+
+.offer-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.offer-badge {
+position: absolute;
+top: 15px;
+right: 15px;
+background-color: var(--success);
+color: white;
+padding: 5px 10px;
+border-radius: 20px;
+font-size: 12px;
+font-weight: 600;
+z-index: 1;
+}
+
+.offer-image {
+height: 180px;
+overflow: hidden;
+}
+
+.offer-image img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: transform 0.5s ease;
+}
+
+.offer-card:hover .offer-image img {
+transform: scale(1.05);
+}
+
+.offer-content {
+padding: 20px;
+}
+
+.offer-title {
+font-size: 1.3rem;
+margin: 0 0 10px;
+color: var(--primary);
+}
+
+.offer-description {
+color: var(--text-muted);
+margin-bottom: 15px;
+font-size: 14px;
+}
+
+.offer-details {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.offer-valid {
+font-size: 12px;
+color: var(--text-muted);
+}
+
+.offer-btn {
+background: linear-gradient(to right, var(--primary), var(--primary-dark));
+color: #1e1e1e;
+border: none;
+padding: 8px 15px;
+border-radius: 5px;
+font-size: 14px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.offer-btn:hover {
+background: linear-gradient(to right, var(--primary-dark), var(--primary));
+transform: translateY(-2px);
+}
+
+/* Car Reviews Section */
+.reviews-section {
+background-color: var(--card-bg);
+border-radius: 15px;
+padding: 30px;
+margin: 40px auto;
+max-width: 100%;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+transition: all 0.3s ease;
+}
+
+.reviews-section:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.reviews-section h2 {
+font-size: 2.2rem;
+color: var(--primary);
+text-align: center;
+margin-bottom: 30px;
+position: relative;
+}
+
+.reviews-section h2::after {
+content: '';
+position: absolute;
+left: 50%;
+bottom: -10px;
+transform: translateX(-50%);
+width: 100px;
+height: 3px;
+background: var(--primary);
+}
+
+.reviews-slider {
+display: flex;
+overflow-x: auto;
+gap: 25px;
+padding: 20px 0;
+scroll-snap-type: x mandatory;
+scroll-behavior: smooth;
+-webkit-overflow-scrolling: touch;
+}
+
+.reviews-slider::-webkit-scrollbar {
+height: 8px;
+}
+
+.reviews-slider::-webkit-scrollbar-track {
+background: rgba(255,255,255,0.1);
+border-radius: 10px;
+}
+
+.reviews-slider::-webkit-scrollbar-thumb {
+background: var(--primary);
+border-radius: 10px;
+}
+
+.review-card {
+min-width: 300px;
+background-color: #2a2a2a;
+border-radius: 10px;
+padding: 25px;
+scroll-snap-align: start;
+transition: all 0.3s ease;
+}
+
+.review-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.review-header {
+display: flex;
+align-items: center;
+margin-bottom: 15px;
+}
+
+.review-avatar {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+background-color: var(--primary);
+display: flex;
+align-items: center;
+justify-content: center;
+color: #1e1e1e;
+font-weight: bold;
+font-size: 20px;
+margin-right: 15px;
+}
+
+.review-user {
+flex: 1;
+}
+
+.review-name {
+font-weight: 600;
+margin: 0 0 5px;
+}
+
+.review-car {
+color: var(--text-muted);
+font-size: 14px;
+}
+
+.review-rating {
+color: var(--primary);
+font-size: 14px;
+}
+
+.review-content {
+color: var(--text-light);
+line-height: 1.6;
+margin-bottom: 15px;
+}
+
+.review-date {
+color: var(--text-muted);
+font-size: 12px;
+text-align: right;
+}
+
+/* FAQ Section */
+.faq-section {
+background-color: var(--card-bg);
+border-radius: 15px;
+padding: 30px;
+margin: 40px auto;
+max-width: 100%;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+transition: all 0.3s ease;
+}
+
+.faq-section:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.faq-section h2 {
+font-size: 2.2rem;
+color: var(--primary);
+text-align: center;
+margin-bottom: 30px;
+position: relative;
+}
+
+.faq-section h2::after {
+content: '';
+position: absolute;
+left: 50%;
+bottom: -10px;
+transform: translateX(-50%);
+width: 100px;
+height: 3px;
+background: var(--primary);
+}
+
+.faq-item {
+margin-bottom: 15px;
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: 8px;
+overflow: hidden;
+transition: all 0.3s ease;
+}
+
+.faq-item.active {
+border-color: rgba(255,165,0,0.3);
+}
+
+.faq-question {
+padding: 15px 20px;
+background-color: rgba(255,255,255,0.05);
+cursor: pointer;
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-weight: 500;
+transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+background-color: rgba(255,165,0,0.1);
+}
+
+.faq-item.active .faq-question {
+background-color: rgba(255,165,0,0.2);
+}
+
+.faq-toggle {
+width: 20px;
+height: 20px;
+position: relative;
+transition: all 0.3s ease;
+}
+
+.faq-toggle::before,
+.faq-toggle::after {
+content: '';
+position: absolute;
+background-color: var(--primary);
+transition: all 0.3s ease;
+}
+
+.faq-toggle::before {
+width: 100%;
+height: 2px;
+top: 50%;
+left: 0;
+transform: translateY(-50%);
+}
+
+.faq-toggle::after {
+width: 2px;
+height: 100%;
+left: 50%;
+top: 0;
+transform: translateX(-50%);
+}
+
+.faq-item.active .faq-toggle::after {
+height: 0;
+}
+
+.faq-answer {
+padding: 0 20px;
+max-height: 0;
+overflow: hidden;
+transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+padding: 20px;
+max-height: 500px;
+}
+
+/* Footer style */
+.footer {
+background-color: var(--card-bg);
+padding: 80px 0 0;
+margin-top: 100px;
+position: relative;
+overflow: hidden;
+}
+
+.footer::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 5px;
+background: linear-gradient(to right, var(--primary), var(--secondary));
+}
+
+.footer-container {
+max-width: 1400px;
+margin: 0 auto;
+padding: 0 40px;
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 50px;
+}
+
+.footer-logo-column {
+grid-column: span 1;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+}
+
+.footer-logo {
+display: flex;
+align-items: center;
+margin-bottom: 25px;
+}
+
+.footer-logo .logo {
+font-size: 2.5rem;
+font-weight: bold;
+color: var(--text-light);
+display: inline-flex;
+align-items: center;
+}
+
+.footer-logo .highlight {
+background: linear-gradient(to right, var(--primary), var(--primary-dark));
+color: #1e1e1e;
+padding: 5px 10px;
+border-radius: 5px;
+margin-left: 5px;
+}
+
+.footer-logo p {
+margin-top: 15px;
+color: var(--text-muted);
+font-size: 1rem;
+line-height: 1.6;
+}
+
+.footer-about {
+color: var(--text-muted);
+font-size: 15px;
+line-height: 1.7;
+margin-bottom: 25px;
+}
+
+.footer-social {
+display: flex;
+gap: 15px;
+margin-top: 20px;
+}
+
+.footer-social a {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 42px;
+height: 42px;
+border-radius: 50%;
+color: var(--text-light);
+transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+font-size: 18px;
+text-decoration: none;
+}
+
+.footer-social a:hover {
+background-color: var(--primary);
+transform: translateY(-3px) scale(1.1);
+box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
+}
+
+.footer-column {
+padding: 0 15px;
+}
+
+.footer-column h3 {
+color: var(--primary);
+font-size: 1.3rem;
+margin-bottom: 25px;
+position: relative;
+padding-bottom: 10px;
+font-weight: 600;
+}
+
+.footer-column h3::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: 0;
+width: 40px;
+height: 3px;
+background: var(--primary);
+border-radius: 3px;
+}
+
+.footer-links {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+.footer-links li {
+margin-bottom: 15px;
+position: relative;
+padding-left: 15px;
+}
+
+.footer-links li::before {
+content: '•';
+position: absolute;
+left: 0;
+color: var(--primary);
+font-size: 20px;
+line-height: 1;
+}
+
+.footer-links a {
+color: var(--text-muted);
+text-decoration: none;
+transition: all 0.3s ease;
+display: inline-block;
+font-size: 15px;
+}
+
+.footer-links a:hover {
+color: var(--primary);
+transform: translateX(5px);
+}
+
+.footer-contact p {
+color: var(--text-muted);
+margin-bottom: 20px;
+display: flex;
+align-items: flex-start;
+gap: 12px;
+font-size: 15px;
+line-height: 1.6;
+}
+
+.footer-contact i {
+color: var(--primary);
+font-size: 18px;
+margin-top: 3px;
+flex-shrink: 0;
+}
+
+.footer-contact a {
+color: var(--text-muted);
+text-decoration: none;
+transition: all 0.3s ease;
+}
+
+.footer-contact a:hover {
+color: var(--primary);
+text-decoration: underline;
+}
+
+.newsletter-column {
+grid-column: span 1;
+}
+
+.newsletter-form {
+margin-top: 20px;
+}
+
+.newsletter-form p {
+color: var(--text-muted);
+font-size: 15px;
+line-height: 1.6;
+margin-bottom: 20px;
+}
+
+.newsletter-input-group {
+position: relative;
+margin-bottom: 15px;
+}
+
+.newsletter-form input {
+width: 100%;
+padding: 14px 20px;
+background-color: rgba(255, 255, 255, 0.08);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 8px;
+color: var(--text-light);
+font-size: 15px;
+transition: all 0.3s ease;
+}
+
+.newsletter-form input:focus {
+outline: none;
+border-color: var(--primary);
+box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.1);
+}
+
+.newsletter-form input::placeholder {
+color: var(--text-muted);
+opacity: 0.7;
+}
+
+.newsletter-form button {
+background: linear-gradient(to right, var(--primary), var(--primary-dark));
+color: #1e1e1e;
+border: none;
+margin-top: 12px;
+padding: 14px 25px;
+border-radius: 8px;
+cursor: pointer;
+width: 100%;
+font-weight: 600;
+transition: all 0.3s ease;
+font-size: 15px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+}
+
+.newsletter-form button:hover {
+background: linear-gradient(to right, var(--primary-dark), var(--primary));
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+}
+
+.newsletter-form button i {
+font-size: 18px;
+}
+
+.footer-bottom {
+grid-column: 1 / -1;
+text-align: center;
+padding: 30px 0;
+margin-top: 60px;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+color: var(--text-muted);
+font-size: 14px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.footer-bottom p {
+margin-bottom: 15px;
+max-width: 800px;
+line-height: 1.6;
+}
+
+.footer-bottom-links {
+display: flex;
+justify-content: center;
+gap: 25px;
+flex-wrap: wrap;
+margin-bottom: 15px;
+}
+
+.footer-bottom-links a {
+color: var(--text-muted);
+text-decoration: none;
+transition: all 0.3s ease;
+font-size: 14px;
+position: relative;
+}
+
+.footer-bottom-links a::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: -2px;
+width: 0;
+height: 1px;
+background: var(--primary);
+transition: width 0.3s ease;
+}
+
+.footer-bottom-links a:hover {
+color: var(--primary);
+}
+
+.footer-bottom-links a:hover::after {
+width: 100%;
+}
+
+/* Back to Top Button */
+.back-to-top {
+position: fixed;
+bottom: 30px;
+right: 30px;
+width: 50px;
+height: 50px;
+margin-bottom: 75px;
+background: linear-gradient(to right, var(--primary), var(--primary-dark));
+color: #1e1e1e;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 20px;
+cursor: pointer;
+opacity: 0;
+visibility: hidden;
+transition: all 0.3s ease;
+z-index: 999;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.back-to-top.visible {
+opacity: 1;
+visibility: visible;
+}
+
+.back-to-top:hover {
+transform: translateY(-5px) scale(1.1);
+box-shadow: 0 8px 20px rgba(255, 140, 0, 0.4);
+}
+
+/* Subscription Success Popup */
+.subscribe-popup {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: white;
+padding: 30px;
+border-radius: 15px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+z-index: 1000;
+display: none;
+max-width: 400px;
+width: 90%;
+text-align: center;
+animation: fadeIn 0.3s ease;
+}
+
+.subscribe-popup.show {
+display: block;
+}
+
+.subscribe-popup i {
+font-size: 50px;
+color: var(--success);
+margin-bottom: 20px;
+}
+
+.subscribe-popup h3 {
+color: var(--secondary);
+margin-bottom: 15px;
+}
+
+.subscribe-popup p {
+color: #555;
+margin-bottom: 20px;
+}
+
+.subscribe-popup .close-popup {
+background: linear-gradient(to right, var(--primary), var(--primary-dark));
+color: #1e1e1e;
+border: none;
+padding: 10px 20px;
+border-radius: 30px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.subscribe-popup .close-popup:hover {
+background: linear-gradient(to right, var(--primary-dark), var(--primary));
+transform: translateY(-2px);
+}
+
+/* Overlay for popups */
+.overlay {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(0,0,0,0.7);
+z-index: 999;
+display: none;
+}
+
+.overlay.show {
+display: block;
+}
+
+/* Cookie Consent Banner */
+.cookie-banner {
+position: fixed;
+bottom: 0;
+left: 0;
+right: 0;
+background-color: var(--card-bg);
+padding: 20px;
+box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+z-index: 998;
+display: none;
+transform: translateY(100%);
+transition: transform 0.3s ease;
+}
+
+.cookie-banner.show {
+display: block;
+transform: translateY(0);
+}
+
+.cookie-content {
+max-width: 1200px;
+margin: 0 auto;
+display: flex;
+align-items: center;
+justify-content: space-between;
+flex-wrap: wrap;
+gap: 20px;
+}
+
+.cookie-text {
+flex: 1;
+min-width: 300px;
+color: var(--text-light);
+}
+
+.cookie-text a {
+color: var(--primary);
+text-decoration: none;
+}
+
+.cookie-text a:hover {
+text-decoration: underline;
+}
+
+.cookie-buttons {
+display: flex;
+gap: 15px;
+}
+
+.cookie-btn {
+padding: 10px 20px;
+border-radius: 5px;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.cookie-btn.accept {
+background: linear-gradient(to right, var(--primary), var(--primary-dark));
+color: #1e1e1e;
+border: none;
+}
+
+.cookie-btn.settings {
+background: transparent;
+border: 1px solid var(--primary);
+color: var(--primary);
+}
+
+.cookie-btn:hover {
+transform: translateY(-2px);
+}
+
+/* Chatbot Widget */
+.chatbot-widget {
+position: fixed;
+bottom: 30px;
+right: 30px;
+width: 60px;
+height: 60px;
+background: linear-gradient(to right, var(--secondary), #5948c7);
+color: white;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 24px;
+cursor: pointer;
+box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+z-index: 997;
+transition: all 0.3s ease;
+}
+
+.chatbot-widget:hover {
+transform: scale(1.1);
+box-shadow: 0 8px 20px rgba(106,90,249,0.4);
+}
+
+.chatbot-container {
+position: fixed;
+bottom: 100px;
+right: 30px;
+width: 350px;
+height: 500px;
+background-color: white;
+border-radius: 15px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+z-index: 996;
+display: none;
+flex-direction: column;
+overflow: hidden;
+transform: translateY(20px);
+opacity: 0;
+transition: all 0.3s ease;
+}
+
+.chatbot-container.show {
+display: flex;
+transform: translateY(0);
+opacity: 1;
+}
+
+.chatbot-header {
+background: linear-gradient(to right, var(--secondary), #5948c7);
+color: white;
+padding: 15px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.chatbot-title {
+font-weight: 600;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.chatbot-close {
+cursor: pointer;
+font-size: 20px;
+}
+
+.chatbot-messages {
+flex: 1;
+padding: 15px;
+overflow-y: auto;
+background-color: #f9f9f9;
+}
+
+.message {
+margin-bottom: 15px;
+max-width: 80%;
+padding: 10px 15px;
+border-radius: 18px;
+font-size: 14px;
+line-height: 1.4;
+position: relative;
+}
+
+.bot-message {
+background-color: #f1f1f1;
+color: #333;
+border-top-left-radius: 5px;
+align-self: flex-start;
+}
+
+.user-message {
+background: linear-gradient(to right, var(--primary), var(--primary-dark));
+color: white;
+border-top-right-radius: 5px;
+align-self: flex-end;
+margin-left: auto;
+}
+
+.chatbot-input {
+display: flex;
+padding: 15px;
+border-top: 1px solid #eee;
+background-color: white;
+}
+
+.chatbot-input input {
+flex: 1;
+padding: 10px 15px;
+border: 1px solid #ddd;
+border-radius: 30px;
+outline: none;
+}
+
+.chatbot-input button {
+background: linear-gradient(to right, var(--secondary), #5948c7);
+color: white;
+border: none;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+margin-left: 10px;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+
+.chatbot-input button:hover {
+background: linear-gradient(to right, #5948c7, var(--secondary));
+transform: scale(1.05);
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+.footer-container {
+gap: 40px;
+padding: 0 30px;
+}
+
+.car-list, .filtered-cars-container {
+grid-template-columns: repeat(3, 1fr);
+}
+}
+
+@media (max-width: 992px) {
+.footer-container {
+grid-template-columns: repeat(2, 1fr);
+gap: 50px 30px;
+}
+
+.footer-logo-column {
+grid-column: span 2;
+}
+
+.newsletter-column {
+grid-column: span 2;
+}
+
+.search-options {
+flex-direction: column;
+align-items: center;
+}
+
+.option-group {
+width: 100%;
+max-width: 300px;
+}
+}
+
+@media (max-width: 900px) {
+.modal-content {
+flex-direction: column;
+width: 90%;
+max-width: 500px;
+min-height: auto;
+}
+
+.image-section {
+height: 200px;
+min-height: 200px;
+border-radius: 10px 10px 0 0;
+background-size: contain;
+background-position: center center;
+}
+
+.form-section {
+padding: 20px;
+}
+}
+
+@media (max-width: 768px) {
+.header h1 {
+font-size: 2rem;
+margin-top: 40px;
+}
+
+.login-btn {
+position: static;
+margin-top: 15px;
+}
+
+.find-car-section {
+padding: 25px 15px;
+}
+
+.find-car-section h2 {
+font-size: 1.8rem;
+}
+
+.footer {
+padding-top: 60px;
+margin-top: 80px;
+}
+
+.footer-container {
+padding: 0 20px;
+gap: 40px 20px;
+}
+
+.footer-column h3 {
+font-size: 1.2rem;
+margin-bottom: 20px;
+}
+
+.footer-links li {
+margin-bottom: 12px;
+}
+
+.footer-contact p {
+margin-bottom: 15px;
+}
+
+.footer-bottom {
+margin-top: 40px;
+padding: 25px 0;
+}
+
+.footer-bottom-links {
+gap: 15px;
+}
+
+.chatbot-container {
+width: 300px;
+right: 15px;
+}
+}
+
+@media (max-width: 600px) {
+.car-list, .filtered-cars-container {
+grid-template-columns: 1fr;
+}
+
+.footer-section, .app-download-section {
+width: 100%;
+padding: 15px;
+}
+
+.modal-content {
+width: 95%;
+margin: 2% auto;
+padding: 15px;
+}
+
+.form-section {
+padding: 15px;
+}
+
+.form-group input {
+padding: 10px 12px;
+}
+
+.remember-recover {
+flex-direction: row;
+align-items: center;
+gap: 15px;
+}
+
+.social-login button {
+padding: 10px;
+font-size: 13px;
+}
+
+.footer-container {
+grid-template-columns: 1fr;
+}
+
+.footer-logo-column,
+.newsletter-column {
+grid-column: span 1;
+}
+
+.footer-column {
+padding: 0;
+}
+
+.footer-logo {
+margin-bottom: 20px;
+}
+
+.footer-logo .logo {
+font-size: 2.2rem;
+}
+
+.footer-bottom-links {
+flex-direction: column;
+gap: 10px;
+}
+
+.back-to-top {
+width: 45px;
+height: 45px;
+bottom: 20px;
+right: 20px;
+}
+
+.chatbot-container {
+width: calc(100% - 30px);
+height: 60vh;
+right: 15px;
+}
+}
+
+/* Link Styles */
+#mercedes, #scorpio, #audi, #forturner, #BE_6, #XEV_9e, #windsor, #curvv {
+text-decoration: none;
+color: var(--text-light);
+display: block;
+height: 100%;
+}
+
+#self {
+text-decoration: none;
+}
+
+/* Animations */
+@keyframes pulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.05); }
+100% { transform: scale(1); }
+}
+
+.pulse {
+animation: pulse 2s infinite;
+}
+
+@keyframes fadeInUp {
+from {
+opacity: 0;
+transform: translateY(20px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+.footer-column {
+animation: fadeInUp 0.6s ease forwards;
+animation-delay: calc(var(--order) * 0.1s);
+opacity: 0;
+}
+
+.footer-logo-column { --order: 1; }
+.footer-column:nth-child(2) { --order: 2; }
+.footer-column:nth-child(3) { --order: 3; }
+.newsletter-column { --order: 4; }
+
+/* Enhanced Find Car Section Styles */
+.find-car-section {
+margin-bottom: 40px;
+background-color: var(--card-bg);
+border-radius: 15px;
+padding: 30px;
+max-width: 100%;
+margin: 0 auto 40px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+transition: all 0.3s ease;
+}
+
+.find-car-section:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.find-car-section h2 {
+font-size: 2.2rem;
+color: var(--primary);
+margin-bottom: 25px;
+text-align: center;
+position: relative;
+}
+
+.find-car-section h2::after {
+content: '';
+position: absolute;
+left: 50%;
+bottom: -10px;
+transform: translateX(-50%);
+width: 100px;
+height: 3px;
+background: var(--primary);
+}
+
+.search-options {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 20px;
+margin-bottom: 25px;
+}
+
+.option-group {
+background-color: #333333;
+border-radius: 10px;
+padding: 15px;
+min-width: 200px;
+transition: all 0.3s ease;
+}
+
+.option-group:hover {
+transform: translateY(-3px);
+box-shadow: 0 5px 15px rgba(255,165,0,0.2);
+}
+
+.option-buttons {
+display: flex;
+gap: 10px;
+}
+
+.option-btn {
+padding: 10px 15px;
+background-color: #444;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-size: 14px;
+color: var(--text-light);
+transition: all 0.3s ease;
+font-weight: 500;
+}
+
+.option-btn:hover {
+background-color: #555;
+}
+
+.option-btn.active {
+background: linear-gradient(to right, var(--primary), var(--primary-dark));
+color: white;
+box-shadow: 0 4px 8px rgba(255,165,0,0.3);
+}
+
+.carway-select {
+width: 100%;
+padding: 10px 15px;
+border: none;
+border-radius: 8px;
+background-color: #444;
+color: white;
+font-size: 14px;
+cursor: pointer;
+transition: all 0.3s ease;
+appearance: none;
+background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+background-repeat: no-repeat;
+background-position: right 15px center;
+background-size: 15px;
+}
+
+.carway-select:focus {
+outline: none;
+box-shadow: 0 0 0 3px rgba(255,165,0,0.2);
+}
+
+.search-actions {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 15px;
+margin-bottom: 30px;
+}
+
+.carway-btn {
+padding: 12px 30px;
+border: none;
+border-radius: 8px;
+font-size: 16px;
+cursor: pointer;
+font-weight: 600;
+transition: all 0.3s ease;
+}
+
+.carway-btn.primary {
+background: linear-gradient(to right, var(--primary), var(--primary-dark));
+color: white;
+box-shadow: 0 4px 8px rgba(255,165,0,0.3);
+}
+
+.carway-btn.primary:hover {
+background: linear-gradient(to right, var(--primary-dark), var(--primary));
+transform: translateY(-2px);
+box-shadow: 0 6px 12px rgba(255,140,0,0.4);
+}
+
+.carway-btn.accent {
+background: linear-gradient(to right, var(--secondary), #5948c7);
+color: white;
+box-shadow: 0 4px 8px rgba(106,90,249,0.3);
+}
+
+.carway-btn.accent:hover {
+background: linear-gradient(to right, #5948c7, var(--secondary));
+transform: translateY(-2px);
+box-shadow: 0 6px 12px rgba(106,90,249,0.4);
+}
+
+.advanced-search-link {
+color: var(--secondary);
+text-decoration: none;
+font-size: 14px;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 5px;
+}
+
+.advanced-search-link:hover {
+color: #5948c7;
+transform: translateX(5px);
+}
+
+/* Filtered cars container */
+.filtered-cars-container {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+gap: 25px;
+justify-content: center;
+margin-top: 30px;
+}
+
+.filtered-car {
+background-color: var(--card-bg);
+border-radius: 15px;
+overflow: hidden;
+text-align: center;
+transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+position: relative;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+opacity: 0;
+transform: translateY(20px);
+animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+.filtered-car:hover {
+transform: translateY(-10px) scale(1.03);
+box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+z-index: 2;
+}
+
+.filtered-car::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 5px;
+background: linear-gradient(to right, var(--primary), var(--secondary));
+opacity: 0;
+transition: opacity 0.3s ease;
+}
+
+.filtered-car:hover::before {
+opacity: 1;
+}
+
+.filtered-car img {
+width: 100%;
+height: 200px;
+object-fit: cover;
+transition: all 0.5s ease;
+}
+
+.filtered-car:hover img {
+transform: scale(1.05);
+}
+
+.filtered-car-details {
+padding: 20px;
+position: relative;
+z-index: 1;
+}
+
+.filtered-car-title {
+font-size: 1.2rem;
+font-weight: bold;
+margin: 0 0 10px;
+color: var(--text-light);
+transition: all 0.3s ease;
+}
+
+.filtered-car:hover .filtered-car-title {
+color: var(--primary);
+}
+
+.filtered-car-price {
+font-size: 1.1rem;
+color: var(--primary);
+font-weight: 600;
+transition: all 0.3s ease;
+}
+
+.filtered-car:hover .filtered-car-price {
+transform: scale(1.1);
+}
+
+.no-results {
+grid-column: 1 / -1;
+text-align: center;
+padding: 40px;
+color: var(--text-muted);
+font-size: 1.2rem;
+animation: fadeIn 0.6s ease;
+}
+/* Upload button styles */
+.upload-btn {
+  position: absolute;
+  top: 20px;
+  right: 180px; /* Adjust based on your layout */
+  background-color: var(--secondary);
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(106,90,249,0.3);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.upload-btn:hover {
+  background-color: #5948c7;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(106,90,249,0.4);
+}
+
+.upload-btn:active {
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+<div class="container">
+<!-- Notification -->
+<div class="notification" id="loginNotification">
+<div class="notification-icon">👋🏻</div>
+<div class="notification-content">
+<h4>Welcome Back!</h4>
+<p>You've successfully logged in to your CarWay account.</p>
+</div>
+</div>
+
+<div class="header">
+<h1><a href = "#" style="text-decoration: none"><div class="logo">Car<span class="highlight">Way</span></div></a></h1>
+<p class="animate__animated animate__fadeIn">Drive Your Dreams</p>
+<!-- Add this right after the login button in the header section -->
+<a href="car_upload.php" class="upload-btn pulse" id="uploadBtn">Upload Car</a>
+<a href="login.php" class="login-btn pulse" id="loginBtn">Login</a>
+<button class="profile-btn" id="profileBtn">
+<div class="profile-pic" id="profilePic">U</div>
+<span id="profileText">Logout</span>
+</button>
+
+<!-- Profile Dropdown -->
+<div class="profile-dropdown" id="profileDropdown">
+<div class="dropdown-item">
+<i class="fas fa-user"></i> My Profile
+</div>
+<div class="dropdown-item">
+<i class="fas fa-car"></i> My Cars
+</div>
+<div class="dropdown-item">
+<i class="fas fa-cog"></i> Settings
+</div>
+<div class="dropdown-divider"></div>
+<div class="dropdown-item" id="logoutBtn">
+<i class="fas fa-sign-out-alt"></i> Logout
+</div>
+</div>
+</div>
+
+<!-- Find Your Right Car Section -->
+<div class="find-car-section animate__animated animate__fadeInUp">
+<h2>Find Your Right Car</h2>
+<div class="search-options">
+<div class="option-group">
+<div class="option-buttons">
+<button class="option-btn active" data-type="new">New Car</button>
+<button class="option-btn" data-type="used">Used Car</button>
+</div>
+</div>
+<div class="option-group">
+<select id="budgetFilter" class="carway-select">
+<option value="all">All Budgets</option>
+<option value="below-5">Below ₹5 Lakh</option>
+<option value="5-10">₹5 Lakh - ₹10 Lakh</option>
+<option value="10-20">₹10 Lakh - ₹20 Lakh</option>
+<option value="above-20">Above ₹20 Lakh</option>
+</select>
+</div>
+<div class="option-group">
+<select id="bodyTypeFilter" class="carway-select">
+<option value="all">All Body Types</option>
+<option value="sedan">Sedan</option>
+<option value="suv">SUV</option>
+<option value="hatchback">Hatchback</option>
+<option value="coupe">Coupe</option>
+<option value="convertible">Convertible</option>
+</select>
+</div>
+<div class="option-group">
+<select id="fuelTypeFilter" class="carway-select">
+<option value="all">All Fuel Types</option>
+<option value="petrol">Petrol</option>
+<option value="diesel">Diesel</option>
+<option value="electric">Electric</option>
+<option value="hybrid">Hybrid</option>
+</select>
+</div>
+</div>
+<div class="search-actions">
+<button class="carway-btn primary" id="searchButton">Search</button>
+<a href="#" class="advanced-search-link">
+<i class="fas fa-sliders-h"></i> Advanced Search
+</a>
+</div>
+<div class="filtered-cars-container" id="filteredCarsContainer">
+<!-- Cars will be dynamically inserted here by JavaScript -->
+</div>
+</div>
+
+<!-- Most Searched Cars -->
+<div class="car-section animate__animated animate__fadeIn">
+<h2>The Most Searched Cars</h2>
+<div class="car-list">
+<!-- Car 1 -->
+<div class="car">
+<a id="mercedes" href="mercedes.html"><img src="https://stimg.cardekho.com/images/carexteriorimages/630x420/Mercedes-Benz/C-Class/10858/Mercedes-Benz-C-Class-C-200/1720160050225/front-left-side-47.jpg" alt="Mercedes Benz C-Class - A luxury sedan with a sleek design">
+<div class="car-details">
+<h3 class="car-title">Mercedes Benz C-Class</h3>
+<p class="car-price">₹59.63 - 65.75 Lakh*</p>
+</div></a>
+</div>
+<!-- Car 2 -->
+<div class="car">
+<a id="scorpio" href="scorpio.html"><img src="https://stimg.cardekho.com/images/carexteriorimages/630x420/Mahindra/Scorpio-N/10817/1690351800434/front-left-side-47.jpg" alt="Mahindra Scorpio N - A robust SUV with modern features">
+<div class="car-details">
+<h3 class="car-title">Mahindra Scorpio N</h3>
+<p class="car-price">₹13.85 - 24.54 Lakh*</p>
+</div></a>
+</div>
+<!-- Car 3 -->
+<div class="car">
+<a id="audi" href="audi.html"><img src="https://stimg.cardekho.com/images/carexteriorimages/630x420/Audi/A6/10552/1708935437947/front-left-side-47.jpg" alt="Audi A6 - A premium sedan with advanced technology">
+<div class="car-details">
+<h3 class="car-title">Audi A6</h3>
+<p class="car-price">₹65.72 - 72 Lakh*</p>
+</div></a>
+</div>
+<!-- Car 4 -->
+<div class="car">
+<a id="forturner" href="forturner.html"><img src="https://stimg.cardekho.com/images/carexteriorimages/630x420/Toyota/Fortuner/10903/1695443447797/front-left-side-47.jpg" alt="Toyota Fortuner - A popular SUV known for its reliability">
+<div class="car-details">
+<h3 class="car-title">Toyota Fortuner</h3>
+<p class="car-price">₹33.78 - 51.94 Lakh*</p>
+</div></a>
+</div>
+</div>
+</div>
+
+<!-- Electric Cars -->
+<div class="car-section animate__animated animate__fadeIn">
+<h2>Electric Cars</h2>
+<div class="car-list">
+<!-- Electric Car 1 -->
+<div id = "ev" class="car">
+<a id="BE_6" href="Mahindra_BE.html"><img src="https://stimg.cardekho.com/images/carexteriorimages/630x420/Mahindra-BE/6e/9263/1732689215786/front-left-side-47.jpg" alt="Mahindra BE 6 - An electric SUV with modern design">
+<div class="car-details">
+<h3 class="car-title">Mahindra BE 6</h3>
+<p class="car-price">₹18.90 - 26.90 Lakh*</p>
+</div></a>
+</div>
+<!-- Electric Car 2 -->
+<div class="car">
+<a id="XEV_9e" href="Mahindra_XEV.html"><img src="https://stimg.cardekho.com/images/carexteriorimages/630x420/Mahindra-XEV/9e/9262/1732688872801/front-left-side-47.jpg" alt="Mahindra XEV 9e - A stylish electric vehicle with great range">
+<div class="car-details">
+<h3 class="car-title">Mahindra XEV 9e</h3>
+<p class="car-price">₹21.90 - 30.50 Lakh*</p>
+</div></a>
+</div>
+<!-- Electric Car 3 -->
+<div class="car">
+<a id="windsor" href="MG_Windsor_EV.html"><img src="https://stimg.cardekho.com/images/carexteriorimages/630x420/MG/Windsor-EV/11848/1726050481737/front-left-side-47.jpg" alt="MG Windsor EV - A compact electric car with modern features">
+<div class="car-details">
+<h3 class="car-title">MG Windsor EV</h3>
+<p class="car-price">₹14 - 16 Lakh*</p>
+</div></a>
+</div>
+<!-- Electric Car 4 -->
+<div class="car">
+<a id="curvv" href="Tata_Curvv_EV.html"><img src="https://stimg.cardekho.com/images/carexteriorimages/630x420/Tata/Curvv-EV/8935/1723089608373/front-left-side-47.jpg" alt="Tata Curvv EV - A stylish electric SUV with advanced technology">
+<div class="car-details">
+<h3 class="car-title">Tata Curvv EV</h3>
+<p class="car-price">₹17.49 - 21.99 Lakh*</p>
+</div></a>
+</div>
+</div>
+</div>
+
+<!-- Featured Offers Section -->
+<div id = "offerr" class="offers-section animate__animated animate__fadeIn">
+<h2>Featured Offers</h2>
+<div class="offers-grid">
+<a href = "mercedes.html" style="text-decoration: none;"><div class="offer-card">
+<div class="offer-badge">Limited Time</div>
+<div class="offer-image">
+<img src="https://stimg.cardekho.com/images/carexteriorimages/630x420/Mercedes-Benz/C-Class/10858/Mercedes-Benz-C-Class-C-200/1720160050225/front-left-side-47.jpg" alt="Mercedes Offer">
+</div>
+<div class="offer-content">
+<h3 class="offer-title">Mercedes-Benz C-Class</h3>
+<p class="offer-description">Get 5 years warranty and free service package for the first 3 years on all new C-Class models.</p>
+<div class="offer-details">
+<span class="offer-valid">Valid until: 30 June 2025</span>
+<button class="offer-btn">View Offer</button>
+</div>
+</div>
+</div></a>
+<a href="scorpio.html" style="text-decoration: none;"><div class="offer-card">
+<div class="offer-image">
+<img src="https://stimg.cardekho.com/images/carexteriorimages/630x420/Mahindra/Scorpio-N/10817/1690351800434/front-left-side-47.jpg" alt="Scorpio Offer">
+</div>
+<div class="offer-content">
+<h3 class="offer-title">Mahindra Scorpio N</h3>
+<p class="offer-description">Special finance options available with EMI starting from ₹15,999 per month.</p>
+<div class="offer-details">
+<span class="offer-valid">Valid until: 31 May 2025</span>
+<button class="offer-btn">View Offer</button>
+</div>
+</div>
+</div></a>
+<a href="Mahindra_BE.html" style="text-decoration: none;"><div class="offer-card">
+<div class="offer-badge">New Launch</div>
+<div class="offer-image">
+<img src="https://stimg.cardekho.com/images/carexteriorimages/630x420/Mahindra-BE/6e/9263/1732689215786/front-left-side-47.jpg" alt="Electric Offer">
+</div>
+<div class="offer-content">
+<h3 class="offer-title">Mahindra BE 6</h3>
+<p class="offer-description">Get ₹1.5 Lakh off on government EV subsidy and free home charging installation.</p>
+<div class="offer-details">
+<span class="offer-valid">Valid until: 31 Dec 2025</span>
+<button class="offer-btn">View Offer</button>
+</div>
+</div>
+</div></a>
+</div>
+</div>
+
+<!-- Enhanced Car Comparison Section -->
+<div class="comparison-section animate__animated animate__fadeIn">
+<h2>Compare Cars</h2>
+<div class="comparison-controls">
+<div class="comparison-select-container">
+<select class="comparison-select" id="compareCar1">
+<option value="">Select First Car</option>
+<option value="mercedes">Mercedes Benz C-Class</option>
+<option value="scorpio">Mahindra Scorpio N</option>
+<option value="audi">Audi A6</option>
+<option value="forturner">Toyota Fortuner</option>
+<option value="BE_6">Mahindra BE 6</option>
+<option value="XEV_9e">Mahindra XEV 9e</option>
+</select>
+</div>
+<div class="comparison-select-container">
+<select class="comparison-select" id="compareCar2">
+<option value="">Select Second Car</option>
+<option value="mercedes">Mercedes Benz C-Class</option>
+<option value="scorpio">Mahindra Scorpio N</option>
+<option value="audi">Audi A6</option>
+<option value="forturner">Toyota Fortuner</option>
+<option value="BE_6">Mahindra BE 6</option>
+<option value="XEV_9e">Mahindra XEV 9e</option>
+</select>
+</div>
+<button class="compare-btn" id="compareBtn">
+<i class="fas fa-exchange-alt"></i> Compare
+</button>
+</div>
+<div class="comparison-results" id="comparisonResults">
+<div class="no-comparison" id="noComparison">
+<i class="fas fa-car"></i>
+<p>Select two cars to compare their features</p>
+</div>
+<div id="comparisonData" style="display: none;">
+<div class="comparison-header">
+<div class="comparison-car" id="compareCar1Container">
+<img src="" alt="Car 1" class="comparison-car-image" id="compareCar1Image">
+<div class="comparison-car-name" id="compareCar1Name"></div>
+<div class="comparison-car-price" id="compareCar1Price"></div>
+</div>
+<div class="comparison-car" id="compareCar2Container">
+<img src="" alt="Car 2" class="comparison-car-image" id="compareCar2Image">
+<div class="comparison-car-name" id="compareCar2Name"></div>
+<div class="comparison-car-price" id="compareCar2Price"></div>
+</div>
+</div>
+<div class="comparison-features" id="comparisonFeatures">
+<!-- Features will be dynamically inserted here -->
+</div>
+<div class="comparison-actions">
+<button class="action-btn primary" id="testDriveBtn">
+<i class="fas fa-car"></i> Book Test Drive
+</button>
+<button class="action-btn secondary" id="resetComparisonBtn">
+<i class="fas fa-redo"></i> Reset
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Customer Reviews Section -->
+<div class="reviews-section animate__animated animate__fadeIn">
+<h2>What Our Customers Say</h2>
+<div class="reviews-slider">
+<div class="review-card">
+<div class="review-header">
+<div class="review-avatar">R</div>
+<div class="review-user">
+<h4 class="review-name">Rajesh Kumar</h4>
+<p class="review-car">Toyota Fortuner</p>
+</div>
+<div class="review-rating">
+<i class="fas fa-star"></i> 4.8
+</div>
+</div>
+<div class="review-content">
+"CarWay made my car buying experience seamless. Their team was knowledgeable and helped me find the perfect SUV for my family. The financing options were excellent too!"
+</div>
+<div class="review-date">15 March 2025</div>
+</div>
+<div class="review-card">
+<div class="review-header">
+<div class="review-avatar">P</div>
+<div class="review-user">
+<h4 class="review-name">Priya Sharma</h4>
+<p class="review-car">Mahindra XEV 9e</p>
+</div>
+<div class="review-rating">
+<i class="fas fa-star"></i> 5.0
+</div>
+</div>
+<div class="review-content">
+"As a first-time EV buyer, I was nervous about the process. CarWay's specialists explained everything clearly and even arranged a home charging installation. Highly recommend!"
+</div>
+<div class="review-date">2 April 2025</div>
+</div>
+<div class="review-card">
+<div class="review-header">
+<div class="review-avatar">A</div>
+<div class="review-user">
+<h4 class="review-name">Amit Patel</h4>
+<p class="review-car">Mercedes C-Class</p>
+</div>
+<div class="review-rating">
+<i class="fas fa-star"></i> 4.5
+</div>
+</div>
+<div class="review-content">
+"The luxury car buying experience at CarWay is unmatched. They understood exactly what I was looking for and delivered beyond my expectations. Will definitely come back for my next car."
+</div>
+<div class="review-date">28 February 2025</div>
+</div>
+<div class="review-card">
+<div class="review-header">
+<div class="review-avatar">S</div>
+<div class="review-user">
+<h4 class="review-name">Sunita Reddy</h4>
+<p class="review-car">Tata Curvv EV</p>
+</div>
+<div class="review-rating">
+<i class="fas fa-star"></i> 4.7
+</div>
+</div>
+<div class="review-content">
+"I was looking for an affordable EV with good range, and CarWay helped me find the perfect match. Their after-sales service has been excellent as well. Very happy with my purchase!"
+</div>
+<div class="review-date">10 April 2025</div>
+</div>
+</div>
+</div>
+
+<!-- FAQ Section -->
+<div class="faq-section animate__animated animate__fadeIn">
+<h2>Frequently Asked Questions</h2>
+<div class="faq-item">
+<div class="faq-question">
+<span>What documents do I need to buy a car?</span>
+<div class="faq-toggle"></div>
+</div>
+<div class="faq-answer">
+<p>You'll need a valid driver's license, proof of identity (Aadhaar card, PAN card, or passport), proof of address (utility bill or rental agreement), and income proof if you're applying for financing. For corporate purchases, additional documents like company registration may be required.</p>
+</div>
+</div>
+<div class="faq-item">
+<div class="faq-question">
+<span>What financing options are available?</span>
+<div class="faq-toggle"></div>
+</div>
+<div class="faq-answer">
+<p>We offer various financing options through our partner banks and financial institutions, including traditional loans, balloon payment schemes, and lease options. Interest rates typically range from 7.5% to 12% depending on your credit score and loan term.</p>
+</div>
+</div>
+<div class="faq-item">
+<div class="faq-question">
+<span>Do you offer test drives for all vehicles?</span>
+<div class="faq-toggle"></div>
+</div>
+<div class="faq-answer">
+<p>Yes, we offer test drives for all our new and certified pre-owned vehicles. You can schedule a test drive online or by visiting our showroom. For luxury and high-performance vehicles, we may require a valid driver's license and prior appointment.</p>
+</div>
+</div>
+<div class="faq-item">
+<div class="faq-question">
+<span>What warranty comes with new cars?</span>
+<div class="faq-toggle"></div>
+</div>
+<div class="faq-answer">
+<p>Most new cars come with a standard manufacturer's warranty of 3 years or 100,000 km, whichever comes first. Electric vehicles typically have longer warranties, especially for batteries (usually 8 years or 160,000 km). Extended warranty options are also available.</p>
+</div>
+</div>
+<div class="faq-item">
+<div class="faq-question">
+<span>How does the used car certification process work?</span>
+<div class="faq-toggle"></div>
+</div>
+<div class="faq-answer">
+<p>Our certified pre-owned vehicles undergo a rigorous 150-point inspection by trained technicians. We only certify cars that meet our strict quality standards, which include service history verification, accident-free history, and mechanical condition. Certified cars come with extended warranty and roadside assistance.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Footer Section -->
+<footer class="footer">
+<div class="footer-container">
+<!-- Logo and About Column -->
+<div class="footer-logo-column">
+<div class="footer-logo">
+<span class="logo">Car<span class="highlight">Way</span></span>
+</div>
+<p class="footer-about">
+CarWay is your premier destination for quality vehicles and exceptional service. We're committed to helping you find the perfect car for your lifestyle.
+</p>
+<div class="footer-social">
+<a href="#" aria-label="Facebook">
+<img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook" width="38" height="38">
+</a>
+<a href="#" aria-label="Twitter">
+<img src="https://img.icons8.com/color/48/twitter--v1.png" alt="Twitter" width="38" height="38">
+</a>
+<a href="#" aria-label="Instagram">
+<img src="https://img.icons8.com/fluency/48/instagram-new.png" alt="Instagram" width="38" height="38">
+</a>
+<a href="#" aria-label="LinkedIn">
+<img src="https://img.icons8.com/fluency/48/linkedin.png" alt="LinkedIn" width="38" height="38">
+</a>
+<a href="#" aria-label="YouTube">
+<img src="https://img.icons8.com/color/48/youtube-play.png" alt="YouTube" width="39" height="39">
+</a>
+</div>
+</div>
+<!-- Quick Links Column -->
+<div class="footer-column">
+<h3>Quick Links</h3>
+<ul class="footer-links">
+<li><a href="#">Home</a></li>
+<li><a href="#budgetFilter">New Cars</a></li>
+<li><a href="#budgetFilter">Used Cars</a></li>
+<li><a href="#ev">Electric Vehicles</a></li>
+<li><a href="#">Test Drives</a></li>
+<li><a href="#offerr">Special Offers</a></li>
+</ul>
+</div>
+<!-- Company Column -->
+<div class="footer-column">
+<h3>Company</h3>
+<ul class="footer-links">
+<li><a href="about.html">About Us</a></li>
+<li><a href="about.html">Careers</a></li>
+<li><a href="about.html">Blog</a></li>
+<li><a href="about.html">Press</a></li>
+<li><a href="about.html">Contact Us</a></li>
+<li><a href="about.html">Locations</a></li>
+</ul>
+</div>
+<!-- Newsletter Column -->
+<div class="footer-column newsletter-column">
+<h3>Newsletter</h3>
+<p>Subscribe to get updates on new vehicles and special offers</p>
+<form class="newsletter-form" id="newsletterForm">
+<div class="newsletter-input-group">
+<input type="email" id="newsletterEmail" placeholder="Your email address" required>
+</div>
+<button type="submit">
+<i class="fas fa-paper-plane"></i> Subscribe
+</button>
+</form>
+</div>
+<!-- Contact Info Column -->
+<div class="footer-column">
+<h3>Contact Info</h3>
+<div class="footer-contact">
+<p>
+<i class="fas fa-map-marker-alt"></i>
+K. J. Somaiya College of Engineering College in Mumbai, Maharashtra
+</p>
+<p>
+<i class="fas fa-envelope"></i>
+<a href="mailto:info@carway.com">info@carway.com</a>
+</p>
+<p>
+<i class="fas fa-phone-alt"></i>
+<a href="tel:+15551234567">+91 9063987256</a>
+</p>
+<p>
+<i class="fas fa-clock"></i>
+Mon-Fri : 9AM - 7PM<br>
+Sat : 9AM - 5PM<br>
+</p>
+</div>
+</div>
+<!-- Footer Bottom -->
+<div class="footer-bottom">
+<div class="footer-bottom-links">
+<a href="about.html">Privacy Policy</a>
+<a href="about.html">Terms of Service</a>
+<a href="about.html">Cookie Policy</a>
+<a href="about.html">Sitemap</a>
+<a href="about.html">FAQ</a>
+</div>
+<p>&copy; 2025 CarWay. All rights reserved. All vehicles are subject to prior sale.</p>
+<p>CarWay is not responsible for typographical errors. Prices exclude tax, title, license and $599 doc fee.</p>
+</div>
+</div>
+<!-- Back to Top Button -->
+<div class="back-to-top" id="backToTop">
+<i class="fas fa-arrow-up"></i>
+</div>
+</footer>
+
+<!-- Subscription Success Popup -->
+<div class="subscribe-popup" id="subscribePopup">
+<i class="fas fa-check-circle"></i>
+<h3>Thank You for Subscribing!</h3>
+<p>You've been successfully added to our newsletter list. Look forward to exciting updates and offers from CarWay.</p>
+<button class="close-popup" id="closeSubscribePopup">Continue</button>
+</div>
+
+<!-- Overlay for popups -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Cookie Consent Banner -->
+<div class="cookie-banner" id="cookieBanner">
+<div class="cookie-content">
+<div class="cookie-text">
+<p>We use cookies to enhance your experience on our website. By continuing to browse, you agree to our use of cookies. Learn more in our <a href="#">Cookie Policy</a>.</p>
+</div>
+<div class="cookie-buttons">
+<button class="cookie-btn accept" id="acceptCookies">Accept</button>
+<button class="cookie-btn settings" id="cookieSettings">Settings</button>
+</div>
+</div>
+</div>
+
+<!-- Chatbot Widget -->
+<div class="chatbot-widget" id="chatbotWidget">
+<i class="fas fa-comment-dots"></i>
+</div>
+<div class="chatbot-container" id="chatbotContainer">
+<div class="chatbot-header">
+<div class="chatbot-title">
+<i class="fas fa-robot"></i> CarWay Assistant
+</div>
+<div class="chatbot-close" id="closeChatbot">
+<i class="fas fa-times"></i>
+</div>
+</div>
+<div class="chatbot-messages" id="chatbotMessages">
+<div class="message bot-message">
+Hi there! 👋 I'm your CarWay assistant. How can I help you today?
+</div>
+<div class="message bot-message">
+You can ask me about car prices, features, or book a test drive!
+</div>
+</div>
+<div class="chatbot-input">
+<input type="text" id="chatbotInput" placeholder="Type your message...">
+<button id="sendChatbotMessage"><i class="fas fa-paper-plane"></i></button>
+</div>
+</div>
+
+<script>
+    // Car Comparison Functionality
+    const compareBtn = document.getElementById('compareBtn');
+    const compareCar1 = document.getElementById('compareCar1');
+    const compareCar2 = document.getElementById('compareCar2');
+    const comparisonResults = document.getElementById('comparisonResults');
+    const noComparison = document.getElementById('noComparison');
+    const comparisonData = document.getElementById('comparisonData');
+    
+    // Car data for comparison
+    const carDatabase = {
+        'mercedes': {
+            name: 'Mercedes Benz C-Class',
+            price: '₹59.63 - 65.75 Lakh',
+            image: 'https://stimg.cardekho.com/images/carexteriorimages/630x420/Mercedes-Benz/C-Class/10858/Mercedes-Benz-C-Class-C-200/1720160050225/front-left-side-47.jpg',
+            features: {
+                'Engine': '2.0L Turbo Petrol',
+                'Power': '255 HP',
+                'Torque': '370 Nm',
+                'Transmission': '9G-TRONIC Automatic',
+                'Fuel Type': 'Petrol',
+                'Mileage': '12.06 kmpl',
+                'Seating Capacity': '5',
+                'Boot Space': '455 litres'
+            }
+        },
+        'scorpio': {
+            name: 'Mahindra Scorpio N',
+            price: '₹13.85 - 24.54 Lakh',
+            image: 'https://stimg.cardekho.com/images/carexteriorimages/630x420/Mahindra/Scorpio-N/10817/1690351800434/front-left-side-47.jpg',
+            features: {
+                'Engine': '2.2L mHawk Diesel',
+                'Power': '175 HP',
+                'Torque': '370 Nm (Diesel) / 380 Nm (Petrol)',
+                'Transmission': '6-Speed Manual / Automatic',
+                'Fuel Type': 'Diesel & Petrol',
+                'Mileage': '16.35 kmpl (Diesel)',
+                'Seating Capacity': '7',
+                'Boot Space': '240 litres'
+            }
+        },
+        'audi': {
+            name: 'Audi A6',
+            price: '₹65.72 - 72 Lakh',
+            image: 'https://stimg.cardekho.com/images/carexteriorimages/630x420/Audi/A6/10552/1708935437947/front-left-side-47.jpg',
+            features: {
+                'Engine': '2.0L TFSI Petrol',
+                'Power': '245 HP',
+                'Torque': '370 Nm',
+                'Transmission': '7-Speed S tronic',
+                'Fuel Type': 'Petrol',
+                'Mileage': '14.11 kmpl',
+                'Seating Capacity': '5',
+                'Boot Space': '530 litres'
+            }
+        },
+        'forturner': {
+            name: 'Toyota Fortuner',
+            price: '₹33.78 - 51.94 Lakh',
+            image: 'https://stimg.cardekho.com/images/carexteriorimages/630x420/Toyota/Fortuner/10903/1695443447797/front-left-side-47.jpg',
+            features: {
+                'Engine': '2.8L Diesel / 2.7L Petrol',
+                'Power': '204 HP (Diesel) / 166 HP (Petrol)',
+                'Torque': '500 Nm (Diesel) / 245 Nm (Petrol)',
+                'Transmission': '6-Speed Automatic',
+                'Fuel Type': 'Diesel & Petrol',
+                'Mileage': '14.24 kmpl (Diesel)',
+                'Seating Capacity': '7',
+                'Boot Space': '296 litres'
+            }
+        },
+        'BE_6': {
+            name: 'Mahindra BE 6',
+            price: '₹18.90 - 26.90 Lakh',
+            image: 'https://stimg.cardekho.com/images/carexteriorimages/630x420/Mahindra-BE/6e/9263/1732689215786/front-left-side-47.jpg',
+            features: {
+                'Motor': 'Permanent Magnet Synchronous Motor',
+                'Power': '210 HP',
+                'Torque': '350 Nm',
+                'Transmission': 'Single Speed Automatic',
+                'Battery': '60 kWh Lithium-ion',
+                'Range': '450 km (ARAI)',
+                'Charging Time': '0-80% in 50 mins (DC Fast)',
+                'Seating Capacity': '5'
+            }
+        },
+        'XEV_9e': {
+            name: 'Mahindra XEV 9e',
+            price: '₹21.90 - 30.50 Lakh',
+            image: 'https://stimg.cardekho.com/images/carexteriorimages/630x420/Mahindra-XEV/9e/9262/1732688872801/front-left-side-47.jpg',
+            features: {
+                'Motor': 'Dual Motor AWD',
+                'Power': '250 HP',
+                'Torque': '400 Nm',
+                'Transmission': 'Single Speed Automatic',
+                'Battery': '70 kWh Lithium-ion',
+                'Range': '500 km (ARAI)',
+                'Charging Time': '0-80% in 45 mins (DC Fast)',
+                'Seating Capacity': '5'
+            }
+        }
+    };
+    
+    // Compare button click handler
+    compareBtn.addEventListener('click', () => {
+        const car1 = compareCar1.value;
+        const car2 = compareCar2.value;
+        
+        if (!car1 || !car2) {
+            showLoginNotification(null, {
+                icon: '⚠️',
+                title: 'Selection Required',
+                message: 'Please select two cars to compare',
+                type: 'error'
+            });
+            return;
+        }
+        
+        if (car1 === car2) {
+            showLoginNotification(null, {
+                icon: '⚠️',
+                title: 'Same Cars Selected',
+                message: 'Please select two different cars to compare',
+                type: 'error'
+            });
+            return;
+        }
+        
+        compareCars(car1, car2);
+    });
+    
+    // Function to compare two cars
+    function compareCars(car1Id, car2Id) {
+        const car1 = carDatabase[car1Id];
+        const car2 = carDatabase[car2Id];
+        
+        // Update UI with car data
+        document.getElementById('compareCar1Image').src = car1.image;
+        document.getElementById('compareCar1Name').textContent = car1.name;
+        document.getElementById('compareCar1Price').textContent = car1.price;
+        
+        document.getElementById('compareCar2Image').src = car2.image;
+        document.getElementById('compareCar2Name').textContent = car2.name;
+        document.getElementById('compareCar2Price').textContent = car2.price;
+        
+        // Generate comparison table
+        const featuresContainer = document.getElementById('comparisonFeatures');
+        featuresContainer.innerHTML = '';
+        
+        // Get all unique features from both cars
+        const allFeatures = new Set([...Object.keys(car1.features), ...Object.keys(car2.features)]);
+        
+        allFeatures.forEach(feature => {
+            const row = document.createElement('div');
+            row.className = 'comparison-row';
+            
+            const featureName = document.createElement('div');
+            featureName.className = 'comparison-feature-name';
+            featureName.textContent = feature;
+            row.appendChild(featureName);
+            
+            const car1Value = document.createElement('div');
+            car1Value.className = 'comparison-feature-value';
+            car1Value.textContent = car1.features[feature] || '-';
+            row.appendChild(car1Value);
+            
+            const car2Value = document.createElement('div');
+            car2Value.className = 'comparison-feature-value';
+            car2Value.textContent = car2.features[feature] || '-';
+            row.appendChild(car2Value);
+            
+            // Highlight better value (simple comparison for demo)
+            if (car1.features[feature] && car2.features[feature]) {
+                if (feature.toLowerCase().includes('power') || 
+                    feature.toLowerCase().includes('torque') ||
+                    feature.toLowerCase().includes('range') ||
+                    feature.toLowerCase().includes('mileage') ||
+                    feature.toLowerCase().includes('space')) {
+                    const val1 = parseFloat(car1.features[feature]);
+                    const val2 = parseFloat(car2.features[feature]);
+                    
+                    if (!isNaN(val1)) {
+                        if (val1 > val2) {
+                            car1Value.classList.add('comparison-highlight');
+                        } else if (val2 > val1) {
+                            car2Value.classList.add('comparison-highlight');
+                        }
+                    }
+                }
+            }
+            
+            featuresContainer.appendChild(row);
+        });
+        
+        // Show results
+        noComparison.style.display = 'none';
+        comparisonData.style.display = 'block';
+        comparisonResults.style.display = 'block';
+    }
+    
+    // Reset comparison button
+    document.getElementById('resetComparisonBtn').addEventListener('click', () => {
+        compareCar1.value = '';
+        compareCar2.value = '';
+        noComparison.style.display = 'block';
+        comparisonData.style.display = 'none';
+    });
+    
+    // Test drive button
+    document.getElementById('testDriveBtn').addEventListener('click', () => {
+        showLoginNotification(null, {
+            icon: '📅',
+            title: 'Test Drive Scheduled',
+            message: 'Our representative will contact you shortly to confirm your test drive appointment.',
+            type: 'success'
+        });
+    });
+    
+    // Filter functionality
+    document.getElementById('searchButton').addEventListener('click', () => {
+        const type = document.querySelector('.option-btn.active').dataset.type;
+        const budget = document.getElementById('budgetFilter').value;
+        const bodyType = document.getElementById('bodyTypeFilter').value;
+        const fuelType = document.getElementById('fuelTypeFilter').value;
+        
+        // In a real app, you would filter actual data here
+        // For demo, we'll just show a notification
+        showLoginNotification(null, {
+            icon: '🔍',
+            title: 'Search Applied',
+            message: `Filters: ${type} cars | ${budget.replace('-', ' - ')} | ${bodyType} | ${fuelType}`,
+            type: 'info'
+        });
+    });
+    
+    // Option buttons toggle
+    document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+    
+    // Chatbot functionality
+    const chatbotWidget = document.getElementById('chatbotWidget');
+    const chatbotContainer = document.getElementById('chatbotContainer');
+    const closeChatbot = document.getElementById('closeChatbot');
+    const chatbotMessages = document.getElementById('chatbotMessages');
+    const chatbotInput = document.getElementById('chatbotInput');
+    const sendChatbotMessage = document.getElementById('sendChatbotMessage');
+    
+    chatbotWidget.addEventListener('click', () => {
+        chatbotContainer.classList.toggle('show');
+    });
+    
+    closeChatbot.addEventListener('click', () => {
+        chatbotContainer.classList.remove('show');
+    });
+    
+    sendChatbotMessage.addEventListener('click', sendMessage);
+    chatbotInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+    
+    function sendMessage() {
+        const message = chatbotInput.value.trim();
+        if (message) {
+            // Add user message
+            addMessage(message, 'user');
+            chatbotInput.value = '';
+            
+            // Simulate bot response after a delay
+            setTimeout(() => {
+                const botResponse = getBotResponse(message);
+                addMessage(botResponse, 'bot');
+            }, 800);
+        }
+    }
+    
+    function addMessage(text, type) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${type}-message`;
+        messageDiv.textContent = text;
+        chatbotMessages.appendChild(messageDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+    
+    function getBotResponse(message) {
+        const lowerMsg = message.toLowerCase();
+        
+        if (lowerMsg.includes('price') || lowerMsg.includes('cost')) {
+            return "Car prices vary based on model and features. Which car are you interested in?";
+        } else if (lowerMsg.includes('test drive') || lowerMsg.includes('drive')) {
+            return "You can book a test drive by clicking the 'Book Test Drive' button in the car comparison section or by visiting our showroom.";
+        } else if (lowerMsg.includes('electric') || lowerMsg.includes('ev')) {
+            return "We have several electric vehicles available. Check out our Electric Cars section for details on models like Mahindra BE 6 and XEV 9e.";
+        } else if (lowerMsg.includes('contact') || lowerMsg.includes('call')) {
+            return "You can reach us at +91 9063987256 or visit our showroom at K. J. Somaiya College of Engineering, Mumbai.";
+        } else if (lowerMsg.includes('hello') || lowerMsg.includes('hi')) {
+            return "Hello! How can I assist you with your car buying journey today?";
+        } else {
+            return "I'm here to help with your car purchase. You can ask me about car prices, features, or book a test drive.";
+        }
+    }
+    
+    // Back to top button
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+    
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // FAQ toggle functionality
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.parentElement;
+            item.classList.toggle('active');
+        });
+    });
+    
+    // Newsletter form
+    document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('newsletterEmail').value;
+        
+        // Show popup
+        document.getElementById('subscribePopup').classList.add('show');
+        document.getElementById('overlay').classList.add('show');
+        
+        // Reset form
+        e.target.reset();
+    });
+    
+    // Close popup
+    document.getElementById('closeSubscribePopup').addEventListener('click', () => {
+        document.getElementById('subscribePopup').classList.remove('show');
+        document.getElementById('overlay').classList.remove('show');
+    });
+    
+    // Cookie banner
+    const cookieBanner = document.getElementById('cookieBanner');
+    const acceptCookies = document.getElementById('acceptCookies');
+    
+    // Show cookie banner after 2 seconds if not already accepted
+    setTimeout(() => {
+        if (!localStorage.getItem('cookiesAccepted')) {
+            cookieBanner.classList.add('show');
+        }
+    }, 2000);
+    
+    acceptCookies.addEventListener('click', () => {
+        localStorage.setItem('cookiesAccepted', 'true');
+        cookieBanner.classList.remove('show');
+    });
+    
+    // Initialize cookie settings if already accepted
+    if (localStorage.getItem('cookiesAccepted')) {
+        cookieBanner.style.display = 'none';
+    }
+    </script>
+</body>
+</html>
